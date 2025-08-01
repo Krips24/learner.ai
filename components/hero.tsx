@@ -37,7 +37,7 @@ export function Hero() {
           </h1>
 
           {/* Subtext */}
-          <p className="mt-6 text-lg leading-8 text-gray-600 dark:text-gray-300">
+          <p className="mt-6 text-lg leading-8 text-gray-600 dark:text-gray-300 sm:text-center text-justify">
             AI-curated news summaries, fascinating facts, and quick quizzes —
             personalized to your interests and delivered in minutes.
           </p>
