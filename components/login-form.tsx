@@ -15,6 +15,7 @@ import { Label } from "@/components/ui/label";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { Loader2 } from "lucide-react"; // Add this with other imports
 
 export function LoginForm({
   className,
@@ -49,18 +50,27 @@ export function LoginForm({
 
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
-      <Card>
-        <CardHeader>
-          <CardTitle className="text-2xl">Login</CardTitle>
-          <CardDescription>
-            Enter your email below to login to your account
+      <Card className="border-border bg-background/90 backdrop-blur-sm shadow-lg">
+        <CardHeader className="space-y-1">
+          <div className="flex items-center gap-2 mb-4">
+            <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center text-white font-bold">
+              L
+            </div>
+            <CardTitle className="text-2xl font-bold bg-gradient-to-r from-primary to-blue-600 bg-clip-text text-transparent">
+              Learner.ai
+            </CardTitle>
+          </div>
+          <CardDescription className="text-muted-foreground">
+            Welcome back! Enter your credentials to continue.
           </CardDescription>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleLogin}>
-            <div className="flex flex-col gap-6">
-              <div className="grid gap-2">
-                <Label htmlFor="email">Email</Label>
+            <div className="flex flex-col gap-4">
+              <div className="space-y-2">
+                <Label htmlFor="email" className="text-muted-foreground">
+                  Email
+                </Label>
                 <Input
                   id="email"
                   type="email"
@@ -68,16 +78,19 @@ export function LoginForm({
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
+                  className="bg-background hover:bg-muted/50 focus-visible:ring-primary transition-colors"
                 />
               </div>
-              <div className="grid gap-2">
+              <div className="space-y-2">
                 <div className="flex items-center">
-                  <Label htmlFor="password">Password</Label>
+                  <Label htmlFor="password" className="text-muted-foreground">
+                    Password
+                  </Label>
                   <Link
                     href="/auth/forgot-password"
-                    className="ml-auto inline-block text-sm underline-offset-4 hover:underline"
+                    className="ml-auto text-sm text-primary hover:text-primary/80 transition-colors"
                   >
-                    Forgot your password?
+                    Forgot password?
                   </Link>
                 </div>
                 <Input
@@ -86,23 +99,48 @@ export function LoginForm({
                   required
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
+                  className="bg-background hover:bg-muted/50 focus-visible:ring-primary transition-colors"
                 />
               </div>
-              {error && <p className="text-sm text-red-500">{error}</p>}
-              <Button type="submit" className="w-full" disabled={isLoading}>
-                {isLoading ? "Logging in..." : "Login"}
+              {error && (
+                <p className="text-sm text-red-500 px-2 py-1 bg-red-500/10 rounded-md">
+                  {error}
+                </p>
+              )}
+              <Button
+                type="submit"
+                className="w-full mt-2 h-10 bg-primary hover:bg-primary/90 transition-all"
+                disabled={isLoading}
+              >
+                {isLoading ? (
+                  <span className="flex items-center gap-2">
+                    <Loader2 className="h-4 w-4 animate-spin" />
+                    Authenticating...
+                  </span>
+                ) : (
+                  "Login"
+                )}
               </Button>
             </div>
-            <div className="mt-4 text-center text-sm">
-              Don&apos;t have an account?{" "}
-              <Link
-                href="/auth/sign-up"
-                className="underline underline-offset-4"
-              >
-                Sign up
-              </Link>
-            </div>
           </form>
+          <div className="relative my-6">
+            <div className="absolute inset-0 flex items-center">
+              <span className="w-full border-t border-border" />
+            </div>
+            <div className="relative flex justify-center text-xs uppercase">
+              <span className="bg-background px-2 text-muted-foreground">
+                New to Learner.ai?
+              </span>
+            </div>
+          </div>
+          <Link href="/auth/sign-up">
+            <Button
+              variant="outline"
+              className="w-full border-border hover:bg-muted/50 hover:border-primary/50 transition-colors"
+            >
+              Create Account
+            </Button>
+          </Link>
         </CardContent>
       </Card>
     </div>

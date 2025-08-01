@@ -1,29 +1,36 @@
-import { EnvVarWarning } from "@/components/env-var-warning";
-import { AuthButton } from "@/components/auth-button";
 import { Hero } from "@/components/hero";
-import { ThemeSwitcher } from "@/components/theme-switcher";
-import { hasEnvVars } from "@/lib/utils";
+import { Features } from "@/components/features";
+import { DailyDigest } from "@/components/daily-digest";
+import { CTASection } from "@/components/cta-section";
+import Navbar from "@/components/navbar";
 
 export default function Home() {
   return (
-    <main className="min-h-screen flex flex-col items-center">
-      <div className="flex-1 w-full flex flex-col gap-20 items-center">
-        <nav className="w-full flex justify-between border-b border-b-foreground/10 h-16">
-          <div className="p-3 px-5">Learner.ai</div>
-          <div className=" p-3 px-5 text-sm">
-            {!hasEnvVars ? <EnvVarWarning /> : <AuthButton />}
-          </div>
-        </nav>
-        <div className="flex-1 flex flex-col gap-20 max-w-5xl p-5">
-          <Hero />
-          <main className="flex-1 flex flex-col gap-6 px-4"></main>
-        </div>
+    <main className="min-h-screen flex flex-col bg-background text-foreground">
+      <Navbar />
 
-        <footer className="w-full flex items-center justify-center border-t mx-auto text-center text-xs gap-8 py-16">
-          <p>Powered by Krapansh</p>
-          <ThemeSwitcher />
-        </footer>
-      </div>
+      {/* Hero Section */}
+      <Hero />
+
+      {/* Feature Highlights */}
+      <section className="py-16 md:py-24 bg-gradient-to-b from-background to-muted/20">
+        <Features />
+      </section>
+
+      {/* Daily Digest Preview */}
+      <section className="py-16 md:py-20 border-t border-border">
+        <DailyDigest />
+      </section>
+
+      {/* User Testimonials */}
+      {/* <section className="py-16 md:py-24 bg-gradient-to-b from-muted/10 to-background">
+        <Testimonials />
+      </section> */}
+
+      {/* Final CTA */}
+      <section className="py-16 md:py-20 border-t border-border">
+        <CTASection />
+      </section>
     </main>
   );
 }
