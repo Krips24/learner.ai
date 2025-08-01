@@ -16,6 +16,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { Loader2 } from "lucide-react"; // Add this with other imports
+import Image from "next/image";
 
 export function LoginForm({
   className,
@@ -52,12 +53,17 @@ export function LoginForm({
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <Card className="border-border bg-background/90 backdrop-blur-sm shadow-lg">
         <CardHeader className="space-y-1">
-          <div className="flex items-center gap-2 mb-4">
-            <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center text-white font-bold">
-              L
-            </div>
+          <div className="flex justify-center gap-2 mb-4">
             <CardTitle className="text-2xl font-bold bg-gradient-to-r from-primary to-blue-600 bg-clip-text text-transparent">
-              Learner.ai
+              {" "}
+              <Image
+                src={"/logo.png"}
+                alt="Learner.ai Logo"
+                width={100}
+                height={100}
+                className=" w-52 object-contain"
+                priority
+              />
             </CardTitle>
           </div>
           <CardDescription className="text-muted-foreground">

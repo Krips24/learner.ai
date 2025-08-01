@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { ThemeSwitcher } from "./theme-switcher";
 
 const Footer = () => {
   return (
@@ -23,7 +22,6 @@ const Footer = () => {
           <Link href="#" className="hover:text-foreground transition-colors">
             Privacy
           </Link>
-          <ThemeSwitcher />
         </div>
       </div>
     </footer>
