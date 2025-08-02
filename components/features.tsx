@@ -1,72 +1,69 @@
-import {
-  LightningBoltIcon,
-  AcademicCapIcon,
-  ChartBarIcon,
-  SparklesIcon,
-} from "@heroicons/react/outline";
+import { BrainCircuit, Zap, BarChart2, BookOpen } from "lucide-react";
 
 export function Features() {
   const features = [
     {
-      icon: <LightningBoltIcon className="w-8 h-8" />,
-      title: "1-Minute Reads",
-      description: "AI-summarized news tailored to your interests",
-      gradient: "from-purple-500 to-blue-500",
+      icon: <Zap className="h-6 w-6 text-radium-400" />,
+      title: "1-Minute AI Summaries",
+      description:
+        "Get the essence of any news story distilled into key points you can read in under a minute.",
     },
     {
-      icon: <AcademicCapIcon className="w-8 h-8" />,
-      title: "Daily Knowledge Boost",
-      description: "Learn something new with curated 'Did You Know' facts",
-      gradient: "from-orange-500 to-pink-500",
+      icon: <BrainCircuit className="h-6 w-6 text-blue-400" />,
+      title: "Personalized Knowledge Quizzes",
+      description:
+        "Five progressive levels of quizzes tailored to your interests and reading history.",
     },
     {
-      icon: <ChartBarIcon className="w-8 h-8" />,
-      title: "Smart Insights",
-      description: "AI-powered analysis of market trends and news",
-      gradient: "from-green-500 to-teal-500",
+      icon: <BarChart2 className="h-6 w-6 text-radium-400" />,
+      title: "Investment Insights",
+      description:
+        "AI-powered market analysis and suggestions based on the latest financial news.",
     },
     {
-      icon: <SparklesIcon className="w-8 h-8" />,
-      title: "Personalized Quizzes",
-      description: "Reinforce learning with adaptive knowledge checks",
-      gradient: "from-yellow-500 to-red-500",
+      icon: <BookOpen className="h-6 w-6 text-blue-400" />,
+      title: "Daily Learning Bites",
+      description:
+        "Curated 'Did You Know?' facts that expand your knowledge in your chosen topics.",
     },
   ];
 
   return (
-    <div className="container mx-auto px-4 max-w-7xl py-16">
-      <div className="text-center mb-16">
-        <h2 className="text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-blue-600 mb-4">
-          Supercharge Your Learning
-        </h2>
-        <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-          AI-powered features designed to maximize your knowledge retention
-        </p>
-      </div>
+    <section id="features" className="relative py-24 sm:py-32">
+      {/* Background elements */}
+      <div className="absolute -left-20 top-1/3 h-64 w-64 rounded-full bg-radium-500/10 blur-[80px]"></div>
+      <div className="absolute bottom-1/4 h-64 w-64 rounded-full bg-blue-500/10 blur-[80px]"></div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-        {features.map((feature, index) => (
-          <div
-            key={index}
-            className="group relative overflow-hidden rounded-2xl bg-background border border-border hover:border-primary/50 p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
-          >
-            <div className="absolute inset-0 bg-gradient-to-br opacity-0 group-hover:opacity-10 transition-opacity duration-300" />
+      <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
+        <div className="mx-auto max-w-2xl text-center">
+          <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
+            Learn Smarter, Not Harder
+          </h2>
+          <p className="mt-6 text-lg leading-8 text-gray-300">
+            Learner.ai combines cutting-edge AI with cognitive science to
+            deliver information in the most efficient way possible.
+          </p>
+        </div>
 
+        <div className="mt-16 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
+          {features.map((feature, index) => (
             <div
-              className={`flex items-center justify-center w-14 h-14 rounded-lg mb-6 bg-gradient-to-br ${feature.gradient} p-1`}
+              key={index}
+              className="group relative rounded-xl border border-gray-800 bg-gray-900/50 p-6 transition-all hover:bg-gray-900 hover:shadow-lg hover:shadow-radium-500/10"
             >
-              <div className="flex items-center justify-center w-full h-full bg-background rounded-md text-primary">
+              <div className="absolute inset-0 -z-10 rounded-xl bg-gradient-to-br from-gray-900 to-gray-950 opacity-0 transition-opacity group-hover:opacity-100"></div>
+              <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-lg bg-gray-800">
                 {feature.icon}
               </div>
+              <h3 className="text-lg font-semibold leading-7 text-white">
+                {feature.title}
+              </h3>
+              <p className="mt-2 text-gray-400">{feature.description}</p>
+              <div className="absolute -left-px -top-px h-px w-0 bg-gradient-to-r from-blue-400/0 via-blue-400 to-radium-400/0 transition-all duration-500 group-hover:w-full"></div>
             </div>
-
-            <h3 className="text-xl font-bold mb-3">{feature.title}</h3>
-            <p className="text-muted-foreground">{feature.description}</p>
-
-            <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r opacity-0 group-hover:opacity-100 transition-opacity duration-500 ${feature.gradient}" />
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
-    </div>
+    </section>
   );
 }

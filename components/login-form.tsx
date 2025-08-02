@@ -1,22 +1,16 @@
+// app/components/login-form.tsx
 "use client";
 
 import { cn } from "@/lib/utils";
 import { createClient } from "@/lib/supabase/client";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { Loader2 } from "lucide-react"; // Add this with other imports
-import Image from "next/image";
+import { Loader2 } from "lucide-react";
+import { motion } from "framer-motion";
 
 export function LoginForm({
   className,
@@ -40,7 +34,6 @@ export function LoginForm({
         password,
       });
       if (error) throw error;
-      // Update this route to redirect to an authenticated route. The user already has an active session.
       router.push("/");
     } catch (error: unknown) {
       setError(error instanceof Error ? error.message : "An error occurred");
@@ -50,105 +43,132 @@ export function LoginForm({
   };
 
   return (
-    <div className={cn("flex flex-col gap-6", className)} {...props}>
-      <Card className="border-border bg-background/90 backdrop-blur-sm shadow-lg">
-        <CardHeader className="space-y-1">
-          <div className="flex justify-center gap-2 mb-4">
-            <CardTitle className="text-2xl font-bold bg-gradient-to-r from-primary to-blue-600 bg-clip-text text-transparent">
-              {" "}
-              <Image
-                src={"/logo.png"}
-                alt="Learner.ai Logo"
-                width={100}
-                height={100}
-                className=" w-52 object-contain"
-                priority
-              />
-            </CardTitle>
+    <div className={cn("grid gap-6", className)} {...props}>
+      <motion.form
+        onSubmit={handleLogin}
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.3 }}
+      >
+        <div className="grid gap-4">
+          <div className="grid gap-2">
+            <Label htmlFor="email" className="text-gray-400">
+              Email
+            </Label>
+            <Input
+              id="email"
+              type="email"
+              placeholder="your@email.com"
+              required
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="bg-gray-900/50 border-gray-800 hover:bg-gray-900/70 focus:border-blue-400 focus:ring-1 focus:ring-blue-400/30 transition-colors"
+            />
           </div>
-          <CardDescription className="text-muted-foreground">
-            Welcome back! Enter your credentials to continue.
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <form onSubmit={handleLogin}>
-            <div className="flex flex-col gap-4">
-              <div className="space-y-2">
-                <Label htmlFor="email" className="text-muted-foreground">
-                  Email
-                </Label>
-                <Input
-                  id="email"
-                  type="email"
-                  placeholder="m@example.com"
-                  required
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="bg-background hover:bg-muted/50 focus-visible:ring-primary transition-colors"
-                />
-              </div>
-              <div className="space-y-2">
-                <div className="flex items-center">
-                  <Label htmlFor="password" className="text-muted-foreground">
-                    Password
-                  </Label>
-                  <Link
-                    href="/auth/forgot-password"
-                    className="ml-auto text-sm text-primary hover:text-primary/80 transition-colors"
-                  >
-                    Forgot password?
-                  </Link>
-                </div>
-                <Input
-                  id="password"
-                  type="password"
-                  required
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  className="bg-background hover:bg-muted/50 focus-visible:ring-primary transition-colors"
-                />
-              </div>
-              {error && (
-                <p className="text-sm text-red-500 px-2 py-1 bg-red-500/10 rounded-md">
-                  {error}
-                </p>
-              )}
-              <Button
-                type="submit"
-                className="w-full mt-2 h-10 bg-primary hover:bg-primary/90 transition-all"
-                disabled={isLoading}
+          <div className="grid gap-2">
+            <div className="flex items-center">
+              <Label htmlFor="password" className="text-gray-400">
+                Password
+              </Label>
+              <Link
+                href="/auth/forgot-password"
+                className="ml-auto inline-block text-sm text-blue-400 hover:text-blue-300 transition-colors"
               >
-                {isLoading ? (
-                  <span className="flex items-center gap-2">
-                    <Loader2 className="h-4 w-4 animate-spin" />
-                    Authenticating...
-                  </span>
-                ) : (
-                  "Login"
-                )}
-              </Button>
+                Forgot password?
+              </Link>
             </div>
-          </form>
-          <div className="relative my-6">
-            <div className="absolute inset-0 flex items-center">
-              <span className="w-full border-t border-border" />
-            </div>
-            <div className="relative flex justify-center text-xs uppercase">
-              <span className="bg-background px-2 text-muted-foreground">
-                New to Learner.ai?
-              </span>
-            </div>
+            <Input
+              id="password"
+              type="password"
+              required
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="bg-gray-900/50 border-gray-800 hover:bg-gray-900/70 focus:border-blue-400 focus:ring-1 focus:ring-blue-400/30 transition-colors"
+            />
           </div>
-          <Link href="/auth/sign-up">
-            <Button
-              variant="outline"
-              className="w-full border-border hover:bg-muted/50 hover:border-primary/50 transition-colors"
+
+          {error && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              className="text-sm text-red-400 px-3 py-2 bg-red-400/10 rounded-md border border-red-400/20"
             >
-              Create Account
-            </Button>
-          </Link>
-        </CardContent>
-      </Card>
+              {error}
+            </motion.div>
+          )}
+
+          <Button
+            type="submit"
+            className="w-full mt-2 h-11 bg-gradient-to-r from-blue-500 to-radium-500 text-white hover:from-blue-600 hover:to-radium-600 transition-all shadow-lg hover:shadow-blue-500/20"
+            disabled={isLoading}
+          >
+            {isLoading ? (
+              <span className="flex items-center gap-2">
+                <Loader2 className="h-4 w-4 animate-spin" />
+                Signing in...
+              </span>
+            ) : (
+              <span>Continue</span>
+            )}
+          </Button>
+        </div>
+      </motion.form>
+
+      <div className="relative">
+        <div className="absolute inset-0 flex items-center">
+          <span className="w-full border-t border-gray-800" />
+        </div>
+        <div className="relative flex justify-center text-xs uppercase">
+          <span className="bg-background px-2 text-gray-500">
+            Or continue with
+          </span>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-2 gap-4">
+        <Button
+          variant="outline"
+          className="border-gray-800 bg-gray-900/50 hover:bg-gray-800/50 hover:border-gray-700 transition-colors"
+        >
+          <svg className="mr-2 h-4 w-4" viewBox="0 0 24 24">
+            <path
+              d="M12.48 10.92v3.28h7.84c-.24 1.84-.853 3.187-1.787 4.133-1.147 1.147-2.933 2.4-6.053 2.4-4.827 0-8.6-3.893-8.6-8.72s3.773-8.72 8.6-8.72c2.6 0 4.507 1.027 5.907 2.347l2.307-2.307C18.747 1.44 16.133 0 12.48 0 5.867 0 .307 5.387.307 12s5.56 12 12.173 12c3.573 0 6.267-1.173 8.373-3.36 2.16-2.16 2.84-5.213 2.84-7.667 0-.76-.053-1.467-.173-2.053H12.48z"
+              fill="currentColor"
+            />
+          </svg>
+          Google
+        </Button>
+        <Button
+          variant="outline"
+          className="border-gray-800 bg-gray-900/50 hover:bg-gray-800/50 hover:border-gray-700 transition-colors"
+        >
+          <svg className="mr-2 h-4 w-4" viewBox="0 0 24 24">
+            <path
+              d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"
+              fill="currentColor"
+            />
+          </svg>
+          GitHub
+        </Button>
+      </div>
+
+      <p className="px-8 text-center text-sm text-gray-500">
+        By continuing, you agree to our{" "}
+        <Link
+          href="/terms"
+          className="underline underline-offset-4 hover:text-gray-300 transition-colors"
+        >
+          Terms of Service
+        </Link>{" "}
+        and{" "}
+        <Link
+          href="/privacy"
+          className="underline underline-offset-4 hover:text-gray-300 transition-colors"
+        >
+          Privacy Policy
+        </Link>
+        .
+      </p>
     </div>
   );
 }

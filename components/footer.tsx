@@ -1,31 +1,62 @@
+"use client";
+
 import Link from "next/link";
+import { motion } from "framer-motion";
 
-const Footer = () => {
+export function Footer() {
   return (
-    <footer className="mt-12">
-      {/* Gradient divider */}
-      <div className="h-[1px] bg-gradient-to-r from-transparent via-primary to-transparent opacity-30 w-full" />
+    <footer className="relative mt-24 overflow-hidden">
+      {/* Background elements */}
+      <div className="absolute -left-20 bottom-0 h-64 w-64 rounded-full bg-blue-500/10 blur-[80px]"></div>
+      <div className="absolute -right-20 top-0 h-64 w-64 rounded-full bg-radium-500/10 blur-[80px]"></div>
 
-      <div className="container mx-auto px-4 py-6 flex flex-col sm:flex-row justify-between items-center gap-4 text-sm text-muted-foreground">
-        <div className="flex items-center gap-4">
-          <Link href="/" className="hover:text-foreground transition-colors">
+      {/* Gradient divider */}
+      <div className="h-px bg-gradient-to-r from-transparent via-gray-700 to-transparent w-full" />
+
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        viewport={{ once: true }}
+        className="container mx-auto px-6 py-8 flex flex-col sm:flex-row justify-between items-center gap-6"
+      >
+        <div className="flex items-center gap-6 text-sm">
+          <Link
+            href="/"
+            className="text-gray-400 hover:text-white transition-colors"
+          >
             © {new Date().getFullYear()} Learner.ai
           </Link>
-          <span className="hidden sm:block">•</span>
-          <p className="hidden sm:block">Powered by Krapansh</p>
+          <span className="hidden sm:block text-gray-600">•</span>
+          <Link
+            href="https://krapansh-portfolio.vercel.app/"
+            className="hidden sm:block text-gray-400"
+          >
+            Powered by <span className="text-radium-400">@Krapansh</span>
+          </Link>
         </div>
 
-        <div className="flex items-center gap-4">
-          <Link href="#" className="hover:text-foreground transition-colors">
+        <div className="flex items-center gap-6">
+          <Link
+            href="/terms"
+            className="text-sm text-gray-400 hover:text-white transition-colors"
+          >
             Terms
           </Link>
-          <Link href="#" className="hover:text-foreground transition-colors">
+          <Link
+            href="/privacy"
+            className="text-sm text-gray-400 hover:text-white transition-colors"
+          >
             Privacy
           </Link>
+          <Link
+            href="/contact"
+            className="text-sm text-gray-400 hover:text-white transition-colors"
+          >
+            Contact
+          </Link>
         </div>
-      </div>
+      </motion.div>
     </footer>
   );
-};
-
-export default Footer;
+}

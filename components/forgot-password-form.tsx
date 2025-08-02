@@ -1,19 +1,15 @@
+// app/components/forgot-password-form.tsx
 "use client";
 
 import { cn } from "@/lib/utils";
 import { createClient } from "@/lib/supabase/client";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Link from "next/link";
 import { useState } from "react";
+import { Loader2, CheckCircle } from "lucide-react";
+import { motion } from "framer-motion";
 
 export function ForgotPasswordForm({
   className,
@@ -31,7 +27,6 @@ export function ForgotPasswordForm({
     setError(null);
 
     try {
-      // The url which will be included in the email. This URL needs to be configured in your redirect URLs in the Supabase dashboard at https://supabase.com/dashboard/project/_/auth/url-configuration
       const { error } = await supabase.auth.resetPasswordForEmail(email, {
         redirectTo: `${window.location.origin}/auth/update-password`,
       });
@@ -45,61 +40,92 @@ export function ForgotPasswordForm({
   };
 
   return (
-    <div className={cn("flex flex-col gap-6", className)} {...props}>
+    <div className={cn("grid gap-6", className)} {...props}>
       {success ? (
-        <Card>
-          <CardHeader>
-            <CardTitle className="text-2xl">Check Your Email</CardTitle>
-            <CardDescription>Password reset instructions sent</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <p className="text-sm text-muted-foreground">
-              If you registered using your email and password, you will receive
-              a password reset email.
-            </p>
-          </CardContent>
-        </Card>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="rounded-xl border border-gray-800 bg-gray-900/50 p-8 text-center"
+        >
+          <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-radium-500/10">
+            <CheckCircle className="h-8 w-8 text-radium-400" />
+          </div>
+          <h3 className="mt-6 text-xl font-semibold text-white">
+            Check your email
+          </h3>
+          <p className="mt-2 text-gray-400">
+            We&apos;ve sent password reset instructions to your email address.
+          </p>
+          <p className="mt-4 text-sm text-gray-500">
+            Didn&apos;t receive the email?{" "}
+            <button
+              onClick={() => setSuccess(false)}
+              className="text-blue-400 hover:text-blue-300 transition-colors"
+            >
+              Try again
+            </button>
+          </p>
+        </motion.div>
       ) : (
-        <Card>
-          <CardHeader>
-            <CardTitle className="text-2xl">Reset Your Password</CardTitle>
-            <CardDescription>
-              Type in your email and we&apos;ll send you a link to reset your
-              password
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <form onSubmit={handleForgotPassword}>
-              <div className="flex flex-col gap-6">
-                <div className="grid gap-2">
-                  <Label htmlFor="email">Email</Label>
-                  <Input
-                    id="email"
-                    type="email"
-                    placeholder="m@example.com"
-                    required
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                  />
-                </div>
-                {error && <p className="text-sm text-red-500">{error}</p>}
-                <Button type="submit" className="w-full" disabled={isLoading}>
-                  {isLoading ? "Sending..." : "Send reset email"}
-                </Button>
-              </div>
-              <div className="mt-4 text-center text-sm">
-                Already have an account?{" "}
-                <Link
-                  href="/auth/login"
-                  className="underline underline-offset-4"
-                >
-                  Login
-                </Link>
-              </div>
-            </form>
-          </CardContent>
-        </Card>
+        <motion.form
+          onSubmit={handleForgotPassword}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="rounded-xl border border-gray-800 bg-gray-900/50 p-8"
+        >
+          <div className="grid gap-4">
+            <div className="grid gap-2">
+              <Label htmlFor="email" className="text-gray-400">
+                Email address
+              </Label>
+              <Input
+                id="email"
+                type="email"
+                placeholder="your@email.com"
+                required
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="bg-gray-900/50 border-gray-800 hover:bg-gray-900/70 focus:border-blue-400 focus:ring-1 focus:ring-blue-400/30 transition-colors"
+              />
+            </div>
+
+            {error && (
+              <motion.div
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: "auto" }}
+                className="text-sm text-red-400 px-3 py-2 bg-red-400/10 rounded-md border border-red-400/20"
+              >
+                {error}
+              </motion.div>
+            )}
+
+            <Button
+              type="submit"
+              className="w-full mt-2 h-11 bg-gradient-to-r from-blue-500 to-radium-500 text-white hover:from-blue-600 hover:to-radium-600 transition-all shadow-lg hover:shadow-blue-500/20"
+              disabled={isLoading}
+            >
+              {isLoading ? (
+                <span className="flex items-center gap-2">
+                  <Loader2 className="h-4 w-4 animate-spin" />
+                  Sending...
+                </span>
+              ) : (
+                <span>Send reset link</span>
+              )}
+            </Button>
+          </div>
+        </motion.form>
       )}
+
+      <p className="px-8 text-center text-sm text-gray-500">
+        Remember your password?{" "}
+        <Link
+          href="/auth/login"
+          className="text-blue-400 hover:text-blue-300 transition-colors"
+        >
+          Login here
+        </Link>
+      </p>
     </div>
   );
 }

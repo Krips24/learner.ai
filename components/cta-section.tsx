@@ -1,71 +1,40 @@
-import { ArrowRight, Sparkles } from "lucide-react";
+import { ArrowRight } from "lucide-react";
+import Link from "next/link";
 
-export function CTASection() {
+export function CTA() {
   return (
-    <div className="relative py-16 sm:py-24">
-      {/* Gradient background overlay */}
-      <div className="absolute inset-0 -z-10 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-background to-secondary/5 opacity-50" />
-        <div className="absolute left-1/2 top-0 h-[300px] w-[800px] -translate-x-1/2 bg-[radial-gradient(#3b82f6_0.5px,transparent_0.5px)] [background-size:16px_16px]" />
-      </div>
+    <section className="relative overflow-hidden py-24 sm:py-32">
+      <div className="absolute inset-0 -z-10 bg-gradient-to-br from-gray-900 to-gray-950 opacity-90"></div>
+      <div className="absolute -left-20 top-1/3 h-64 w-64 rounded-full bg-radium-500/20 blur-[100px]"></div>
+      <div className="absolute -right-20 bottom-1/4 h-64 w-64 rounded-full bg-blue-500/20 blur-[100px]"></div>
 
-      <div className="container mx-auto px-4 max-w-5xl text-center">
-        {/* Decorative badge */}
-        <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 text-primary rounded-full text-sm font-medium mb-6">
-          <Sparkles className="w-4 h-4" />
-          Join the knowledge revolution
-        </div>
-
-        {/* Headline */}
-        <h2 className="text-4xl md:text-5xl font-bold mb-6">
-          Ready to{" "}
-          <span className="bg-gradient-to-r from-primary to-blue-600 bg-clip-text text-transparent">
-            Supercharge
-          </span>{" "}
-          Your Learning?
-        </h2>
-
-        {/* Subtext */}
-        <p className="text-xl text-muted-foreground mb-10 max-w-2xl mx-auto">
-          Join <span className="font-semibold text-foreground">15,000+</span>{" "}
-          curious minds getting their daily AI-curated knowledge boost.
-        </p>
-
-        {/* Buttons */}
-        <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <button className="group relative inline-flex items-center justify-center px-8 py-3.5 bg-primary hover:bg-primary/90 text-primary-foreground rounded-full font-medium text-lg transition-all duration-300 overflow-hidden">
-            <span className="relative z-10 inline-flex items-center gap-2">
-              Get Started - It&apos;s Free
-              <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
-            </span>
-            <span className="absolute inset-0 bg-gradient-to-r from-primary to-blue-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-          </button>
-
-          <button className="group relative inline-flex items-center justify-center px-8 py-3.5 border border-border hover:border-primary/50 bg-background hover:bg-accent rounded-full font-medium text-lg transition-all duration-300">
-            <span className="relative z-10 inline-flex items-center gap-2">
-              <Sparkles className="w-5 h-5" />
-              See How It Works
-            </span>
-          </button>
-        </div>
-
-        {/* Trust indicators */}
-        <div className="mt-12 flex flex-col items-center gap-4 text-sm text-muted-foreground">
-          <div className="flex items-center gap-3">
-            {[...Array(5)].map((_, i) => (
-              <svg
-                key={i}
-                className="w-4 h-4 fill-yellow-400 text-yellow-400"
-                viewBox="0 0 24 24"
-              >
-                <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
-              </svg>
-            ))}
-            <span>Rated 4.9/5 by 2,500+ learners</span>
+      <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
+        <div className="mx-auto max-w-2xl text-center">
+          <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
+            Ready to Learn Smarter?
+          </h2>
+          <p className="mt-6 text-lg leading-8 text-gray-300">
+            Join thousands of curious minds who are staying informed in just
+            minutes a day.
+          </p>
+          <div className="mt-10 flex items-center justify-center gap-6">
+            <Link
+              href="/signup"
+              className="group relative flex items-center gap-2 overflow-hidden rounded-lg bg-gradient-to-r from-blue-500 to-radium-500 px-8 py-4 font-medium text-white shadow-lg transition-all duration-300 hover:shadow-xl hover:shadow-blue-500/30"
+            >
+              <span className="relative z-10">Get Started Free</span>
+              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+              <div className="absolute inset-0 z-0 bg-gradient-to-r from-blue-600 to-radium-600 opacity-0 transition-opacity group-hover:opacity-100"></div>
+            </Link>
+            <Link
+              href="#features"
+              className="rounded-lg border border-gray-700 bg-gray-900 px-8 py-4 font-medium text-white transition-all hover:border-gray-600 hover:bg-gray-800"
+            >
+              Learn More
+            </Link>
           </div>
-          <p>No credit card required • Cancel anytime</p>
         </div>
       </div>
-    </div>
+    </section>
   );
 }

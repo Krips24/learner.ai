@@ -1,8 +1,8 @@
-import { Hero } from "@/components/hero";
+import { CTA } from "@/components/cta-section";
 import { Features } from "@/components/features";
-import { DailyDigest } from "@/components/daily-digest";
-import { CTASection } from "@/components/cta-section";
-import Navbar from "@/components/navbar";
+import { Hero } from "@/components/hero";
+import { HowItWorks } from "@/components/howitworks";
+import { Navbar } from "@/components/navbar";
 
 export default function Home() {
   return (
@@ -13,20 +13,17 @@ export default function Home() {
       {/* Hero Section */}
       <Hero />
 
-      {/* Feature Highlights */}
-      <section className=" bg-gradient-to-b from-background to-muted/20">
-        <Features />
-      </section>
+      {/* Features Section */}
+      <Features />
 
-      {/* Daily Digest Preview */}
-      <section className=" border-t border-border">
-        <DailyDigest />
-      </section>
+      {/* How It Works */}
+      <HowItWorks />
 
-      {/* Final CTA */}
-      <section className=" border-t border-border">
-        <CTASection />
-      </section>
+      {/* Testimonials */}
+      {/* <Testimonials /> */}
+
+      {/* Call to Action */}
+      <CTA />
     </main>
   );
 }
