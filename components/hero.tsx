@@ -61,15 +61,15 @@ export function Hero() {
             </span>
           </h1>
 
-          {/* Subheading */}
-          <p className="mt-6 text-lg leading-relaxed text-gray-300 md:max-w-[90%]">
-            Learner.ai transforms how you consume information with{" "}
-            <span className="font-medium text-blue-400">
-              AI-curated 1-minute briefings
+          {/* Subheadline */}
+          <p className="mt-6 text-lg text-gray-300 md:max-w-[90%]">
+            Get{" "}
+            <span className="text-blue-400 font-medium">
+              AI-powered 1-minute briefs
             </span>
-            , personalized knowledge quizzes, and{" "}
-            <span className="font-medium text-radium-400">smart insights</span>{" "}
-            tailored to your interests.
+            , personalized quizzes, and{" "}
+            <span className="text-radium-400 font-medium">smart insights</span>
+            tailored to you.
           </p>
 
           {/* CTA buttons */}
@@ -93,8 +93,8 @@ export function Hero() {
           {/* Stats */}
           <div className="mt-12 flex flex-wrap justify-center gap-6 lg:justify-start">
             {[
-              { value: "1-min", label: "Daily Reads" },
-              { value: "5", label: "Knowledge Levels" },
+              { value: "1-min", label: "Quick Reads" },
+              { value: "5 Levels", label: "Quizzes" },
               { value: "AI", label: "Powered" },
             ].map((stat) => (
               <div

@@ -17,7 +17,7 @@ export function CTA() {
             Join thousands of curious minds who are staying informed in just
             minutes a day.
           </p>
-          <div className="mt-10 flex items-center justify-center gap-6">
+          <div className="mt-10 flex flex-col items-center justify-center gap-6 sm:flex-row">
             <Link
               href="/signup"
               className="group relative flex items-center gap-2 overflow-hidden rounded-lg bg-gradient-to-r from-blue-500 to-radium-500 px-8 py-4 font-medium text-white shadow-lg transition-all duration-300 hover:shadow-xl hover:shadow-blue-500/30"
@@ -28,7 +28,7 @@ export function CTA() {
             </Link>
             <Link
               href="#features"
-              className="rounded-lg border border-gray-700 bg-gray-900 px-8 py-4 font-medium text-white transition-all hover:border-gray-600 hover:bg-gray-800"
+              className="rounded-lg border border-gray-700 bg-gray-900 px-14 py-4  font-medium text-white transition-all hover:border-gray-600 hover:bg-gray-800"
             >
               Learn More
             </Link>
