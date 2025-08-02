@@ -116,7 +116,7 @@ export function SignUpForm({
 
           <Button
             type="submit"
-            className="w-full mt-2 h-11 bg-gradient-to-r from-blue-500 to-radium-500 text-white hover:from-blue-600 hover:to-radium-600 transition-all shadow-lg hover:shadow-blue-500/20"
+            className="w-full mt-2 h-11 bg-gradient-to-r from-blue-500 to-green-500 text-white hover:from-blue-600 hover:to-green-600 transition-all shadow-lg hover:shadow-blue-500/20"
             disabled={isLoading}
           >
             {isLoading ? (

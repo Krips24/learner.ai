@@ -54,8 +54,8 @@ export function UpdatePasswordForm({
           animate={{ opacity: 1, y: 0 }}
           className="rounded-xl border border-gray-800 bg-gray-900/50 p-8 text-center"
         >
-          <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-radium-500/10">
-            <CheckCircle className="h-8 w-8 text-radium-400" />
+          <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-green-500/10">
+            <CheckCircle className="h-8 w-8 text-green-400" />
           </div>
           <h3 className="mt-6 text-xl font-semibold text-white">
             Password updated!
@@ -114,7 +114,7 @@ export function UpdatePasswordForm({
 
             <Button
               type="submit"
-              className="w-full mt-2 h-11 bg-gradient-to-r from-blue-500 to-radium-500 text-white hover:from-blue-600 hover:to-radium-600 transition-all shadow-lg hover:shadow-blue-500/20"
+              className="w-full mt-2 h-11 bg-gradient-to-r from-blue-500 to-green-500 text-white hover:from-blue-600 hover:to-green-600 transition-all shadow-lg hover:shadow-blue-500/20"
               disabled={isLoading}
             >
               {isLoading ? (

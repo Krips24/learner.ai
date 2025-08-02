@@ -34,7 +34,7 @@ export function HowItWorks() {
 
   return (
     <section className="relative overflow-hidden py-24 sm:py-32">
-      <div className="absolute left-1/2 top-0 h-[40rem] w-[40rem] -translate-x-1/2 rounded-full bg-radium-500/10 blur-[100px]"></div>
+      <div className="absolute left-1/2 top-0 h-[40rem] w-[40rem] -translate-x-1/2 rounded-full bg-green-500/10 blur-[100px]"></div>
 
       <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
         <div className="mx-auto max-w-2xl text-center">
@@ -55,7 +55,7 @@ export function HowItWorks() {
               <div className="grid grid-cols-1 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
                 {steps.map((step, index) => (
                   <div key={index} className="relative pl-8 pr-6">
-                    <div className="absolute left-0 top-1 flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-radium-500">
+                    <div className="absolute left-0 top-1 flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-green-500">
                       {step.icon}
                     </div>
                     <div className="flex flex-col">

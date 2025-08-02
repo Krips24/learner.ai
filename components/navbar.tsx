@@ -70,7 +70,7 @@ function AuthButton() {
   ) : (
     <Button
       size="sm"
-      className="bg-gradient-to-r from-blue-500 to-radium-500 text-white hover:from-blue-600 hover:to-radium-600 shadow-lg hover:shadow-blue-500/20"
+      className="bg-gradient-to-r from-blue-500 to-green-500 text-white hover:from-blue-600 hover:to-green-600 shadow-lg hover:shadow-blue-500/20"
       onClick={() => router.push("/auth/login")}
     >
       <LogIn className="h-4 w-4 mr-2" />

@@ -1,4 +1,5 @@
 // app/components/hero.tsx
+"use client";
 import { ArrowRight, Sparkles } from "lucide-react";
 import Link from "next/link";
 
@@ -6,7 +7,7 @@ export function Hero() {
   return (
     <section className="relative overflow-hidden">
       {/* Background elements */}
-      <div className="absolute -left-20 -top-20 h-96 w-96 rounded-full bg-radium-500/10 blur-[100px]"></div>
+      <div className="absolute -left-20 -top-20 h-96 w-96 rounded-full bg-green-500/10 blur-[100px]"></div>
       <div className="absolute -right-20 bottom-0 h-96 w-96 rounded-full bg-blue-500/10 blur-[100px]"></div>
 
       {/* Content container */}
@@ -14,21 +15,27 @@ export function Hero() {
         {/* Left content */}
         <div className="flex max-w-2xl flex-col items-center text-center lg:items-start lg:text-left">
           {/* Animated tagline */}
-          <div className="group relative mb-6 inline-flex items-center gap-2 overflow-hidden rounded-full border border-gray-800 bg-gradient-to-br from-gray-900 to-gray-950 px-4 py-2 pr-6">
-            <div className="relative flex h-6 w-6 items-center justify-center rounded-full bg-radium-500/20">
-              <Sparkles className="h-3 w-3 animate-pulse text-radium-400" />
+          {/* Seamless moving border tagline */}
+          <div className="group relative mb-6 inline-flex items-center gap-2 rounded-full p-[1.5px] overflow-hidden">
+            {/* Infinite scrolling gradient border */}
+            <div className="absolute inset-0 bg-[length:200%_100%] bg-gradient-to-r from-blue-500 from-10% via-[#99FF33] via-50% to-blue-500 to-90% animate-[infiniteScroll_6s_linear_infinite]"></div>
+
+            {/* Inner content */}
+            <div className="relative flex items-center gap-2 rounded-full bg-gray-900 px-4 py-2 pr-6 z-10">
+              <div className="flex h-6 w-6 items-center justify-center rounded-full bg-[#99FF33]/20">
+                <Sparkles className="h-3 w-3 animate-pulse text-[#99FF33]" />
+              </div>
+              <span className="text-sm font-medium text-white">
+                AI-Powered Learning
+              </span>
             </div>
-            <span className="text-sm font-medium text-radium-400">
-              AI-Powered Learning
-            </span>
-            <div className="absolute -left-12 -top-12 h-24 w-24 rounded-full bg-radium-500/30 blur-md group-hover:animate-ping"></div>
           </div>
 
           {/* Main headline */}
           <h1 className="text-4xl font-bold leading-tight tracking-tight sm:text-5xl sm:leading-tight md:text-6xl md:leading-tight">
             <span className="relative whitespace-nowrap">
               <span className="relative z-10">Smarter News</span>
-              <span className="absolute -bottom-1 left-0 z-0 h-3 w-full bg-radium-500/30"></span>
+              {/* <span className="absolute -bottom-1 left-0 z-0 h-3 w-full bg-green-500/30"></span> */}
             </span>{" "}
             for the{" "}
             <span className="relative whitespace-nowrap bg-gradient-to-r from-blue-400 to-[#99FF33] bg-clip-text text-transparent">
@@ -67,20 +74,18 @@ export function Hero() {
             <span className="text-blue-400 font-medium">
               AI-powered 1-minute briefs
             </span>
-            , personalized quizzes, and{" "}
-            <span className="text-radium-400 font-medium">smart insights</span>
-            tailored to you.
+            , personalized quizzes, and smart insights tailored to you.
           </p>
 
           {/* CTA buttons */}
           <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row">
             <Link
               href="/signup"
-              className="group relative flex items-center justify-center gap-2 overflow-hidden rounded-lg bg-gradient-to-r from-blue-500 to-radium-500 px-8 py-3.5 font-medium text-white shadow-lg transition-all duration-300 hover:shadow-xl hover:shadow-blue-500/20 active:scale-95"
+              className="group relative flex items-center justify-center gap-2 overflow-hidden rounded-lg bg-gradient-to-r from-blue-500 to-green-500 px-8 py-3.5 font-medium text-white shadow-lg transition-all duration-300 hover:shadow-xl hover:shadow-blue-500/20 active:scale-95"
             >
               <span className="relative z-10">Get Started</span>
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-              <div className="absolute inset-0 z-0 bg-gradient-to-r from-blue-600 to-radium-600 opacity-0 transition-opacity group-hover:opacity-100"></div>
+              <div className="absolute inset-0 z-0 bg-gradient-to-r from-blue-600 to-green-600 opacity-0 transition-opacity group-hover:opacity-100"></div>
             </Link>
             <Link
               href="#features"
@@ -127,13 +132,13 @@ export function Hero() {
 
               {/* App header */}
               <div className="mt-4 px-6">
-                <div className="h-4 w-24 rounded-full bg-gradient-to-r from-blue-400 to-radium-400"></div>
+                <div className="h-4 w-24 rounded-full bg-gradient-to-r from-blue-400 to-green-400"></div>
                 <div className="mt-2 h-3 w-32 rounded-full bg-gray-800"></div>
               </div>
 
               {/* News card */}
               <div className="relative mx-6 mt-6 overflow-hidden rounded-xl bg-gradient-to-br from-gray-900 to-gray-800 p-5">
-                <div className="absolute -right-10 -top-10 h-32 w-32 rounded-full bg-radium-500/10 blur-xl"></div>
+                <div className="absolute -right-10 -top-10 h-32 w-32 rounded-full bg-green-500/10 blur-xl"></div>
                 <div className="relative z-10">
                   <div className="h-4 w-3/4 rounded-full bg-white"></div>
                   <div className="mt-3 h-2 w-full rounded-full bg-gray-700"></div>
@@ -141,7 +146,7 @@ export function Hero() {
                   <div className="mt-2 h-2 w-4/6 rounded-full bg-gray-700"></div>
                 </div>
                 <div className="relative z-10 mt-6 flex items-center gap-3">
-                  <div className="h-8 w-8 rounded-full bg-radium-500/20"></div>
+                  <div className="h-8 w-8 rounded-full bg-green-500/20"></div>
                   <div className="flex-1">
                     <div className="h-3 w-3/4 rounded-full bg-gray-600"></div>
                     <div className="mt-1 h-2 w-1/2 rounded-full bg-gray-800"></div>
@@ -168,9 +173,9 @@ export function Hero() {
               {/* AI suggestion */}
               <div className="mt-6 mx-6 rounded-lg border border-gray-800 bg-gray-900/50 p-4">
                 <div className="flex items-start gap-3">
-                  <div className="mt-1 h-6 w-6 rounded-full bg-radium-500/20"></div>
+                  <div className="mt-1 h-6 w-6 rounded-full bg-green-500/20"></div>
                   <div className="flex-1">
-                    <div className="h-3 w-3/4 rounded-full bg-radium-400/70"></div>
+                    <div className="h-3 w-3/4 rounded-full bg-green-400/70"></div>
                     <div className="mt-2 h-2 w-full rounded-full bg-gray-800"></div>
                     <div className="mt-2 h-2 w-5/6 rounded-full bg-gray-800"></div>
                   </div>
@@ -183,7 +188,7 @@ export function Hero() {
                   <div
                     key={item}
                     className={`flex flex-col items-center ${
-                      item === "News" ? "text-radium-400" : "text-gray-500"
+                      item === "News" ? "text-green-400" : "text-gray-500"
                     }`}
                   >
                     <div className="h-5 w-5 rounded-full bg-gray-800"></div>
@@ -196,7 +201,7 @@ export function Hero() {
 
           {/* Floating elements around device */}
           <div className="absolute -left-10 -top-10 h-24 w-24 animate-float rounded-xl bg-blue-500/10 blur-[20px]"></div>
-          <div className="absolute -right-10 bottom-10 h-16 w-16 animate-float rounded-full bg-radium-500/10 blur-[20px] animation-delay-2000"></div>
+          <div className="absolute -right-10 bottom-10 h-16 w-16 animate-float rounded-full bg-green-500/10 blur-[20px] animation-delay-2000"></div>
         </div>
       </div>
     </section>

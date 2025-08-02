@@ -7,7 +7,7 @@ export default function Page() {
   return (
     <div className="relative pt-4 min-h-svh w-full overflow-hidden">
       {/* Background elements */}
-      <div className="absolute -left-20 top-1/4 h-96 w-96 rounded-full bg-radium-500/10 blur-[100px]"></div>
+      <div className="absolute -left-20 top-1/4 h-96 w-96 rounded-full bg-green-500/10 blur-[100px]"></div>
       <div className="absolute -right-20 bottom-1/4 h-96 w-96 rounded-full bg-blue-500/10 blur-[100px]"></div>
 
       {/* Navbar */}
