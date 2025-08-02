@@ -35,7 +35,7 @@ function AuthButton() {
     };
 
     getUser();
-  }, []);
+  }, [supabase.auth]);
 
   const handleSignOut = async () => {
     await supabase.auth.signOut();
