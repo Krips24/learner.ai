@@ -39,7 +39,7 @@ function AuthButton() {
 
   const handleSignOut = async () => {
     await supabase.auth.signOut();
-    router.refresh();
+    window.location.reload();
   };
 
   if (loading) {
@@ -50,15 +50,20 @@ function AuthButton() {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button
-          variant="outline"
           size="sm"
-          className="border-gray-700 bg-gray-800/50 hover:bg-gray-800 text-white"
+          className=" bg-gradient-to-r from-blue-500 to-green-500 text-white hover:from-blue-600 hover:to-green-600 shadow-lg hover:shadow-blue-500/20"
         >
           <UserIcon className="h-4 w-4 mr-2" />
           Account
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-56 border-gray-800 bg-gray-900">
+      <DropdownMenuContent className="border-gray-800 bg-gray-900">
+        <DropdownMenuItem
+          className="cursor-pointer text-sm text-gray-300 hover:bg-gray-800 focus:text-white"
+          onClick={() => router.push("/profile")}
+        >
+          Profile
+        </DropdownMenuItem>
         <DropdownMenuItem
           className="cursor-pointer text-gray-300 hover:bg-gray-800 focus:text-white"
           onClick={handleSignOut}

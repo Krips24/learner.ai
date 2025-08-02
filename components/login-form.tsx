@@ -34,7 +34,7 @@ export function LoginForm({
         password,
       });
       if (error) throw error;
-      router.push("/");
+      router.push("/dashboard");
     } catch (error: unknown) {
       setError(error instanceof Error ? error.message : "An error occurred");
     } finally {
@@ -111,6 +111,12 @@ export function LoginForm({
               <span>Continue</span>
             )}
           </Button>
+          <Link
+            href="/auth/sign-up"
+            className="sm:text-sm text-xs font-medium text-gray-400 hover:text-white transition-colors"
+          >
+            Don&apos;t have an account?
+          </Link>
         </div>
       </motion.form>
 

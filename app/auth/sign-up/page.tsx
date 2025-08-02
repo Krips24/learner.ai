@@ -1,36 +1,14 @@
 // app/auth/sign-up/page.tsx
 import { SignUpForm } from "@/components/sign-up-form";
-import Link from "next/link";
-import Image from "next/image";
+import { Navbar } from "../components/navbar";
 
 export default function Page() {
   return (
     <div className="relative pt-6 max-sm:pt-8 min-h-svh w-full overflow-hidden">
+      <Navbar />
       {/* Background elements */}
       <div className="absolute -left-20 top-1/4 h-96 w-96 rounded-full bg-green-500/10 blur-[100px]"></div>
       <div className="absolute -right-20 bottom-1/4 h-96 w-96 rounded-full bg-blue-500/10 blur-[100px]"></div>
-
-      {/* Navbar */}
-      <nav className="absolute w-full flex justify-between items-center px-6 py-4 top-0 bg-background/80 backdrop-blur-sm z-50 border-b border-gray-800">
-        <Link
-          href="/"
-          className="relative w-36 h-12 md:w-44 md:h-14 flex items-center py-1"
-        >
-          <Image
-            src="/logo.png"
-            alt="Learner.ai Logo"
-            fill
-            className=" object-contain"
-            priority
-          />
-        </Link>
-        <Link
-          href="/auth/login"
-          className="sm:text-sm text-xs font-medium text-gray-400 hover:text-white transition-colors"
-        >
-          Already have an account?
-        </Link>
-      </nav>
 
       {/* Main content */}
       <div className="container relative flex h-svh flex-col items-center justify-center px-6 pt-16">

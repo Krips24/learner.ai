@@ -128,6 +128,12 @@ export function SignUpForm({
               <span>Sign Up</span>
             )}
           </Button>
+          <Link
+            href="/auth/login"
+            className="sm:text-sm text-xs font-medium text-gray-400 hover:text-white transition-colors"
+          >
+            Already have an account?
+          </Link>
         </div>
       </motion.form>
 

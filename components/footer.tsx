@@ -18,7 +18,7 @@ export function Footer() {
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
         viewport={{ once: true }}
-        className="container mx-auto px-6 py-8 flex flex-col sm:flex-row justify-between items-center gap-6"
+        className="container mx-auto px-6 py-8 flex flex-col sm:flex-row justify-center items-center gap-6"
       >
         <div className="flex items-center gap-6 text-sm">
           <Link
@@ -30,30 +30,9 @@ export function Footer() {
           <span className="hidden sm:block text-gray-600">•</span>
           <Link
             href="https://krapansh-portfolio.vercel.app/"
-            className="hidden sm:block text-gray-400"
+            className=" sm:block text-gray-400"
           >
             Powered by <span className="text-green-400">@Krapansh</span>
-          </Link>
-        </div>
-
-        <div className="flex items-center gap-6">
-          <Link
-            href="/terms"
-            className="text-sm text-gray-400 hover:text-white transition-colors"
-          >
-            Terms
-          </Link>
-          <Link
-            href="/privacy"
-            className="text-sm text-gray-400 hover:text-white transition-colors"
-          >
-            Privacy
-          </Link>
-          <Link
-            href="/contact"
-            className="text-sm text-gray-400 hover:text-white transition-colors"
-          >
-            Contact
           </Link>
         </div>
       </motion.div>
