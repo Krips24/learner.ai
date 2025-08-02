@@ -31,8 +31,8 @@ export function Hero() {
               <span className="absolute -bottom-1 left-0 z-0 h-3 w-full bg-radium-500/30"></span>
             </span>{" "}
             for the{" "}
-            <span className="relative whitespace-nowrap bg-gradient-to-r from-blue-400 to-radium-400 bg-clip-text text-transparent">
-              Curious Mind
+            <span className="relative whitespace-nowrap bg-gradient-to-r from-blue-400 to-[#99FF33] bg-clip-text text-transparent">
+              Curious Minds
               <svg
                 className="absolute -bottom-2 left-0 h-3 w-full"
                 viewBox="0 0 200 20"
