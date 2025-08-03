@@ -43,6 +43,7 @@ export default function Dashboard() {
   const touchStartTime = useRef(0);
 
   // Fetch news based on selected topic
+  // Fetch news based on selected topic
   useEffect(() => {
     const fetchNews = async () => {
       setIsLoading(true);
@@ -51,14 +52,27 @@ export default function Dashboard() {
         yesterday.setDate(yesterday.getDate() - 1);
         const dateString = yesterday.toISOString().split("T")[0];
 
-        const response = await fetch(
-          `https://newsapi.org/v2/everything?q=${selectedTopic}&from=${dateString}&sortBy=popularity&apiKey=${process.env.NEXT_PUBLIC_NEWS_API_KEY}`
-        );
+        const response = await fetch("/api/fetch-news", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            topic: selectedTopic,
+            date: dateString,
+          }),
+        });
+
+        if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(errorData.error || "Failed to fetch news");
+        }
+
         const data = await response.json();
-        console.log("Fetched news:", data);
         setNews(data.articles || []);
       } catch (error) {
-        console.log("Error fetching news:", error);
+        console.error("Error fetching news:", error);
+        // Optionally set some error state to show to user
       } finally {
         setIsLoading(false);
       }
