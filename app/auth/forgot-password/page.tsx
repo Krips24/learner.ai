@@ -2,6 +2,7 @@
 import { ForgotPasswordForm } from "@/components/forgot-password-form";
 import Link from "next/link";
 import Image from "next/image";
+import { Footer } from "@/components/footer";
 
 export default function Page() {
   return (
@@ -44,6 +45,8 @@ export default function Page() {
           <ForgotPasswordForm />
         </div>
       </div>
+
+      <Footer />
     </div>
   );
 }

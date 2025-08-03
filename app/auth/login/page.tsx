@@ -1,6 +1,7 @@
 // app/auth/sign-in/page.tsx
 import { LoginForm } from "@/components/login-form";
 import { Navbar } from "../components/navbar";
+import { Footer } from "@/components/footer";
 
 export default function Page() {
   return (
@@ -24,6 +25,7 @@ export default function Page() {
           <LoginForm />
         </div>
       </div>
+      <Footer />
     </div>
   );
 }

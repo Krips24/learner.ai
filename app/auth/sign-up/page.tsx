@@ -1,6 +1,7 @@
 // app/auth/sign-up/page.tsx
 import { SignUpForm } from "@/components/sign-up-form";
 import { Navbar } from "../components/navbar";
+import { Footer } from "@/components/footer";
 
 export default function Page() {
   return (
@@ -24,6 +25,7 @@ export default function Page() {
           <SignUpForm />
         </div>
       </div>
+      <Footer />
     </div>
   );
 }

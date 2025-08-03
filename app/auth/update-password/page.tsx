@@ -2,6 +2,7 @@
 import { UpdatePasswordForm } from "@/components/update-password-form";
 import Link from "next/link";
 import Image from "next/image";
+import { Footer } from "@/components/footer";
 
 export default function Page() {
   return (
@@ -38,6 +39,8 @@ export default function Page() {
           <UpdatePasswordForm />
         </div>
       </div>
+
+      <Footer />
     </div>
   );
 }

@@ -86,14 +86,28 @@ function AuthButton() {
 
 // Main Navbar component
 export function Navbar() {
-  return (
+  const [user, setUser] = useState<User | null>(null);
+  const supabase = createClient();
+
+  useEffect(() => {
+    const getUser = async () => {
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+      setUser(user);
+    };
+
+    getUser();
+  }, [supabase.auth]);
+
+  return user ? (
     <motion.nav
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
       className="fixed w-full h-20 flex justify-between items-center px-6 lg:px-8 py-4 top-0 z-50 backdrop-blur-sm  border-b border-gray-800"
     >
       {/* Logo */}
-      <Link href="/" className="group flex items-center gap-2">
+      <Link href="/dashboard" className="group flex items-center gap-2">
         <motion.div
           whileHover={{ scale: 1.05 }}
           className="relative w-36 h-12 md:w-44 md:h-14"
@@ -113,5 +127,34 @@ export function Navbar() {
         <AuthButton />
       </div>
     </motion.nav>
+  ) : (
+    <div>
+      <motion.nav
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="fixed w-full h-20 flex justify-between items-center px-6 lg:px-8 py-4 top-0 z-50 backdrop-blur-sm  border-b border-gray-800"
+      >
+        {/* Logo */}
+        <Link href="/" className="group flex items-center gap-2">
+          <motion.div
+            whileHover={{ scale: 1.05 }}
+            className="relative w-36 h-12 md:w-44 md:h-14"
+          >
+            <Image
+              src="/logo.png"
+              alt="Learner.ai Logo"
+              fill
+              className="object-contain transition-all duration-300 group-hover:opacity-90"
+              priority
+            />
+          </motion.div>
+        </Link>
+
+        {/* Navigation Items */}
+        <div className="flex items-center gap-6">
+          <AuthButton />
+        </div>
+      </motion.nav>
+    </div>
   );
 }

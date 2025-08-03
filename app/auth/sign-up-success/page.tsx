@@ -1,3 +1,4 @@
+import { Footer } from "@/components/footer";
 import {
   Card,
   CardContent,
@@ -27,6 +28,7 @@ export default function Page() {
           </Card>
         </div>
       </div>
+      <Footer />
     </div>
   );
 }
