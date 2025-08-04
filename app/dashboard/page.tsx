@@ -7,7 +7,6 @@ import { Footer } from "./components/footer";
 import { Sparkles, ChevronLeft, ChevronRight, X } from "lucide-react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-import Link from "next/link";
 
 type NewsItem = {
   source: {
@@ -40,9 +39,9 @@ export default function Dashboard() {
   const [isSummarizing, setIsSummarizing] = useState(false);
   const touchStartX = useRef(0);
   const touchEndX = useRef(0);
-
   const [isSwiping, setIsSwiping] = useState(false);
   const touchStartTime = useRef(0);
+  // const [direction, setDirection] = useState<"next" | "prev">("next");
 
   // Fetch news based on selected topic
   // Fetch news based on selected topic
@@ -104,23 +103,28 @@ export default function Dashboard() {
     if (isSwiping && timeDiff < 300) {
       if (touchStartX.current - touchEndX.current > 50) {
         // Swipe left - next article
+        // setDirection("next");
         setCurrentIndex((prev) => Math.min(prev + 1, news.length - 1));
       } else if (touchEndX.current - touchStartX.current > 50) {
         // Swipe right - previous article
+        // setDirection("prev");
         setCurrentIndex((prev) => Math.max(prev - 1, 0));
       }
     }
     setIsSwiping(false);
   };
+
   const handlePrevClick = (e: React.MouseEvent | React.TouchEvent) => {
     e.stopPropagation();
     e.preventDefault();
+    // setDirection("prev");
     setCurrentIndex((prev) => Math.max(prev - 1, 0));
   };
 
   const handleNextClick = (e: React.MouseEvent | React.TouchEvent) => {
     e.stopPropagation();
     e.preventDefault();
+    // setDirection("next");
     setCurrentIndex((prev) => Math.min(prev + 1, news.length - 1));
   };
 
@@ -298,14 +302,14 @@ export default function Dashboard() {
             <AnimatePresence mode="wait">
               <motion.div
                 key={currentIndex}
-                initial={{ x: 50, opacity: 0 }}
-                animate={{ x: 0, opacity: 1 }}
-                exit={{ x: -50, opacity: 0 }}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
                 transition={{ duration: 0.3 }}
                 className="p-4 sm:p-6"
               >
                 {/* News content */}
-                <div className="flex flex-col sm:flex-row justify-between items-start gap-2 mb-4">
+                <div className="flex flex-row justify-between items-start gap-2 mb-4">
                   <span className="text-xs sm:text-sm text-gray-400">
                     Source: {currentArticle.source.name}
                   </span>
@@ -403,25 +407,7 @@ export default function Dashboard() {
       </div>
 
       {/* Footer */}
-      <Footer>
-        <div className="flex justify-around items-center py-6 px-6 backdrop-blur-lg rounded-t-xl border-t border-gray-800">
-          <Link
-            href="/dashboard"
-            className="flex flex-col items-center text-gray-300 hover:text-white transition-colors"
-          >
-            <span className="text-xs">News</span>
-          </Link>
-          <button className="flex flex-col items-center text-gray-300 hover:text-white transition-colors">
-            <span className="text-xs">Quiz</span>
-          </button>
-          <button className="flex flex-col items-center text-gray-300 hover:text-white transition-colors">
-            <span className="text-xs">AI</span>
-          </button>
-          <button className="flex flex-col items-center text-gray-300 hover:text-white transition-colors">
-            <span className="text-xs">Profile</span>
-          </button>
-        </div>
-      </Footer>
+      <Footer />
 
       {/* AI Panel Components */}
       <AnimatePresence>

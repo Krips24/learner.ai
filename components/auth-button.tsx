@@ -37,9 +37,9 @@ export function AuthButton() {
 
   return user ? (
     <Button
-      variant="outline"
+      // variant="outline"
       size="sm"
-      className="border-gray-700 bg-gray-800/50 hover:bg-gray-800 text-white"
+      className="bg-transparent hover:bg-gray-800 text-white"
       onClick={handleSignOut}
     >
       <UserIcon className="h-4 w-4 mr-2" />
