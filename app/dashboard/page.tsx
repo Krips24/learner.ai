@@ -236,7 +236,7 @@ export default function Dashboard() {
       </Navbar>
 
       {/* Mobile Topics */}
-      <div className="md:hidden relative top-20 px-6 right-4 w-full z-50">
+      <div className="md:hidden relative top-20 px-6 py-1 right-4 w-full z-50">
         <div className="overflow-x-auto no-scrollbar py-1">
           <div className="flex gap-2 w-max px-2">
             {[
@@ -266,7 +266,7 @@ export default function Dashboard() {
       </div>
       {/* Main news card */}
       <div
-        className="flex-1 flex flex-col items-center justify-center p-4 mt-6 relative"
+        className="flex-1 flex flex-col items-center justify-center p-4 sm:mt-6 mt-8 relative"
         onTouchStart={handleTouchStart}
         onTouchMove={handleTouchMove}
         onTouchEnd={handleTouchEnd}
@@ -277,7 +277,7 @@ export default function Dashboard() {
           }
         }}
       >
-        <div className="w-full max-w-2xl h-[80vh] bg-gray-900 rounded-2xl overflow-hidden border border-gray-800 flex flex-col">
+        <div className="w-full max-w-2xl h-[77vh] bg-gray-900 rounded-2xl overflow-hidden border border-gray-800 flex flex-col">
           {/* News image */}
           {currentArticle.urlToImage && (
             <div className="h-48 bg-gray-800 relative overflow-hidden">
