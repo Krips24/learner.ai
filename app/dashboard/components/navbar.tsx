@@ -18,7 +18,10 @@ export function Navbar({ children }: NavbarProps) {
       className="fixed w-full h-20 flex justify-between items-center px-4 sm:px-6 lg:px-8 py-4 top-0 z-50 backdrop-blur-lg border-b border-gray-800"
     >
       {/* Logo */}
-      <Link href="/" className="group flex items-center gap-2 flex-shrink-0">
+      <Link
+        href="/dashboard"
+        className="group flex items-center gap-2 flex-shrink-0"
+      >
         <motion.div
           whileHover={{ scale: 1.05 }}
           className="relative w-36 h-12 md:w-44 md:h-14"

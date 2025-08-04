@@ -233,37 +233,37 @@ export default function Dashboard() {
             </button>
           ))}
         </div>
-
-        {/* Mobile Topics */}
-        <div className="md:hidden relative w-full">
-          <div className="overflow-x-auto no-scrollbar py-1">
-            <div className="flex gap-2 w-max px-2">
-              {[
-                "investments",
-                "sports",
-                "technology",
-                "health",
-                "entertainment",
-              ].map((topic) => (
-                <button
-                  key={topic}
-                  onClick={() => setSelectedTopic(topic as Topic)}
-                  className={`px-3 py-1.5 rounded-full text-xs whitespace-nowrap flex-shrink-0 ${
-                    selectedTopic === topic
-                      ? "bg-gradient-to-r from-blue-500 to-[#99FF33] text-white"
-                      : "bg-gray-800 text-gray-300 hover:bg-gray-700"
-                  }`}
-                >
-                  {topic.charAt(0).toUpperCase() + topic.slice(1)}
-                </button>
-              ))}
-            </div>
-          </div>
-          {/* Gradient fade indicators */}
-          <div className="absolute inset-y-0 left-0 w-6 bg-gradient-to-r from-gray-950 to-transparent pointer-events-none"></div>
-          <div className="absolute inset-y-0 right-0 w-6 bg-gradient-to-l from-gray-950 to-transparent pointer-events-none"></div>
-        </div>
       </Navbar>
+
+      {/* Mobile Topics */}
+      <div className="md:hidden relative top-20 px-6 right-4 w-full z-50">
+        <div className="overflow-x-auto no-scrollbar py-1">
+          <div className="flex gap-2 w-max px-2">
+            {[
+              "investments",
+              "sports",
+              "technology",
+              "health",
+              "entertainment",
+            ].map((topic) => (
+              <button
+                key={topic}
+                onClick={() => setSelectedTopic(topic as Topic)}
+                className={`px-3 py-1.5 rounded-full text-xs whitespace-nowrap flex-shrink-0 ${
+                  selectedTopic === topic
+                    ? "bg-gradient-to-r from-blue-500 to-[#99FF33] text-white"
+                    : "bg-gray-800 text-gray-300 hover:bg-gray-700"
+                }`}
+              >
+                {topic.charAt(0).toUpperCase() + topic.slice(1)}
+              </button>
+            ))}
+          </div>
+        </div>
+        {/* Gradient fade indicators */}
+        <div className="absolute inset-y-0 left-0 w-6 bg-gradient-to-r from-gray-950 to-transparent pointer-events-none"></div>
+        <div className="absolute inset-y-0 right-0 w-6 bg-gradient-to-l from-gray-950 to-transparent pointer-events-none"></div>
+      </div>
       {/* Main news card */}
       <div
         className="flex-1 flex flex-col items-center justify-center p-4 mt-6 relative"
