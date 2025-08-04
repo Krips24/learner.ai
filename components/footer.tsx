@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 
 export function Footer() {
   return (
-    <footer className="relative mt-24 overflow-hidden">
+    <footer className="relative overflow-hidden">
       {/* Background elements */}
       <div className="absolute -left-20 bottom-0 h-64 w-64 rounded-full bg-blue-500/10 blur-[80px]"></div>
       <div className="absolute -right-20 top-0 h-64 w-64 rounded-full bg-green-500/10 blur-[80px]"></div>
