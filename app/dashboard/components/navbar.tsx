@@ -1,3 +1,4 @@
+// In your Navbar component (navbar.tsx)
 "use client";
 
 import { motion } from "framer-motion";
@@ -14,10 +15,10 @@ export function Navbar({ children }: NavbarProps) {
     <motion.nav
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
-      className="fixed w-full h-20 flex justify-between items-center px-6 lg:px-8 py-4 top-0 z-50 backdrop-blur-lg border-b border-gray-800"
+      className="fixed w-full h-20 flex justify-between items-center px-4 sm:px-6 lg:px-8 py-4 top-0 z-50 backdrop-blur-lg border-b border-gray-800"
     >
       {/* Logo */}
-      <Link href="/" className="group flex items-center gap-2">
+      <Link href="/" className="group flex items-center gap-2 flex-shrink-0">
         <motion.div
           whileHover={{ scale: 1.05 }}
           className="relative w-36 h-12 md:w-44 md:h-14"
@@ -32,8 +33,8 @@ export function Navbar({ children }: NavbarProps) {
         </motion.div>
       </Link>
 
-      {/* Topics Section (passed as children) */}
-      <div className="flex-1 mx-6 overflow-x-auto no-scrollbar">{children}</div>
+      {/* Topics Section */}
+      <div className="flex-1 mx-4 sm:mx-6 min-w-0">{children}</div>
 
       {/* Auth Button */}
       <div className="flex-shrink-0">
@@ -42,14 +43,3 @@ export function Navbar({ children }: NavbarProps) {
     </motion.nav>
   );
 }
-
-// CSS for hiding scrollbar (add to globals.css)
-/*
-.no-scrollbar::-webkit-scrollbar {
-  display: none;
-}
-.no-scrollbar {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-}
-*/

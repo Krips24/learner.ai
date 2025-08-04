@@ -4,7 +4,7 @@
 import { useState, useEffect, useRef } from "react";
 import { Navbar } from "./components/navbar";
 import { Footer } from "./components/footer";
-import { Sparkles, ChevronDown, ChevronUp, X } from "lucide-react";
+import { Sparkles, ChevronLeft, ChevronRight, X } from "lucide-react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -37,8 +37,9 @@ export default function Dashboard() {
   const [showAIPanel, setShowAIPanel] = useState(false);
   const [aiResponse, setAiResponse] = useState("");
   const [isSummarizing, setIsSummarizing] = useState(false);
-  const touchStartY = useRef(0);
-  const touchEndY = useRef(0);
+  const touchStartX = useRef(0);
+  const touchEndX = useRef(0);
+
   const [isSwiping, setIsSwiping] = useState(false);
   const touchStartTime = useRef(0);
 
@@ -83,15 +84,14 @@ export default function Dashboard() {
 
   // Handle swipe gestures
   const handleTouchStart = (e: React.TouchEvent) => {
-    touchStartY.current = e.touches[0].clientY;
+    touchStartX.current = e.touches[0].clientX;
     touchStartTime.current = Date.now();
-    setIsSwiping(false); // Reset swiping state
+    setIsSwiping(false);
   };
 
   const handleTouchMove = (e: React.TouchEvent) => {
-    touchEndY.current = e.touches[0].clientY;
-    // Only consider it swiping if there's significant movement
-    if (Math.abs(touchStartY.current - touchEndY.current) > 10) {
+    touchEndX.current = e.touches[0].clientX;
+    if (Math.abs(touchStartX.current - touchEndX.current) > 10) {
       setIsSwiping(true);
     }
   };
@@ -100,22 +100,17 @@ export default function Dashboard() {
     const now = Date.now();
     const timeDiff = now - touchStartTime.current;
 
-    // Only process as swipe if:
-    // 1. There was significant vertical movement (more than 50px)
-    // 2. The duration was short (less than 300ms)
-    // 3. We detected movement in touchMove
     if (isSwiping && timeDiff < 300) {
-      if (touchStartY.current - touchEndY.current > 50) {
-        // Swipe up - next article
+      if (touchStartX.current - touchEndX.current > 50) {
+        // Swipe left - next article
         setCurrentIndex((prev) => Math.min(prev + 1, news.length - 1));
-      } else if (touchEndY.current - touchStartY.current > 50) {
-        // Swipe down - previous article
+      } else if (touchEndX.current - touchStartX.current > 50) {
+        // Swipe right - previous article
         setCurrentIndex((prev) => Math.max(prev - 1, 0));
       }
     }
     setIsSwiping(false);
   };
-
   const handlePrevClick = (e: React.MouseEvent | React.TouchEvent) => {
     e.stopPropagation();
     e.preventDefault();
@@ -129,7 +124,6 @@ export default function Dashboard() {
   };
 
   // Get AI summary
-  // In your page.tsx
   const handleAISummary = async () => {
     if (!news[currentIndex]) return;
 
@@ -145,8 +139,10 @@ export default function Dashboard() {
         body: JSON.stringify({
           title: news[currentIndex].title,
           content: news[currentIndex].content || news[currentIndex].description,
-          instructions:
-            "Provide a very concise summary in 1-2 short sentences. Focus only on the key point.", // Add this to guide the AI
+          instructions: `Provide a concise summary in 3 short points.
+                  Use plain text only - no markdown or formatting.
+                  Each point should be one sentence maximum.
+                  Then add "Why it matters:" followed by one short sentence.`,
         }),
       });
 
@@ -181,6 +177,7 @@ export default function Dashboard() {
       setIsSummarizing(false);
     }
   };
+
   if (isLoading && news.length === 0) {
     return (
       <div className="min-h-screen flex flex-col bg-gray-950 text-white">
@@ -211,20 +208,22 @@ export default function Dashboard() {
     <div className="min-h-screen flex flex-col bg-gray-950 text-white">
       {/* Navbar with topics - Improved for mobile */}
       <Navbar>
-        <div className="flex overflow-x-auto py-2 px-4 no-scrollbar gap-2">
-          {(
-            [
-              "investments",
-              "sports",
-              "technology",
-              "health",
-              "entertainment",
-            ] as Topic[]
-          ).map((topic) => (
+        {/* Desktop Topics */}
+        <div className="hidden md:flex items-center justify-center gap-2 overflow-x-auto no-scrollbar px-2">
+          {[
+            "investments",
+            "sports",
+            "technology",
+            "health",
+            "entertainment",
+            "business",
+            "science",
+            "politics",
+          ].map((topic) => (
             <button
               key={topic}
-              onClick={() => setSelectedTopic(topic)}
-              className={`px-3 py-1.5 rounded-full text-xs sm:text-sm whitespace-nowrap flex-shrink-0 ${
+              onClick={() => setSelectedTopic(topic as Topic)}
+              className={`px-3 py-1.5 rounded-full text-sm whitespace-nowrap flex-shrink-0 ${
                 selectedTopic === topic
                   ? "bg-gradient-to-r from-blue-500 to-[#99FF33] text-white"
                   : "bg-gray-800 text-gray-300 hover:bg-gray-700"
@@ -234,8 +233,37 @@ export default function Dashboard() {
             </button>
           ))}
         </div>
-      </Navbar>
 
+        {/* Mobile Topics */}
+        <div className="md:hidden relative w-full">
+          <div className="overflow-x-auto no-scrollbar py-1">
+            <div className="flex gap-2 w-max px-2">
+              {[
+                "investments",
+                "sports",
+                "technology",
+                "health",
+                "entertainment",
+              ].map((topic) => (
+                <button
+                  key={topic}
+                  onClick={() => setSelectedTopic(topic as Topic)}
+                  className={`px-3 py-1.5 rounded-full text-xs whitespace-nowrap flex-shrink-0 ${
+                    selectedTopic === topic
+                      ? "bg-gradient-to-r from-blue-500 to-[#99FF33] text-white"
+                      : "bg-gray-800 text-gray-300 hover:bg-gray-700"
+                  }`}
+                >
+                  {topic.charAt(0).toUpperCase() + topic.slice(1)}
+                </button>
+              ))}
+            </div>
+          </div>
+          {/* Gradient fade indicators */}
+          <div className="absolute inset-y-0 left-0 w-6 bg-gradient-to-r from-gray-950 to-transparent pointer-events-none"></div>
+          <div className="absolute inset-y-0 right-0 w-6 bg-gradient-to-l from-gray-950 to-transparent pointer-events-none"></div>
+        </div>
+      </Navbar>
       {/* Main news card */}
       <div
         className="flex-1 flex flex-col items-center justify-center p-4 mt-6 relative"
@@ -267,175 +295,225 @@ export default function Dashboard() {
             </div>
           )}
 
-          {/* News content */}
-          <div className="flex-1 p-4 sm:p-6 overflow-y-auto relative">
-            {/* Improved header alignment */}
-            <div className="flex flex-col sm:flex-row justify-between items-start gap-2 mb-4">
-              <span className="text-xs sm:text-sm text-gray-400">
-                {new Date(currentArticle.publishedAt).toLocaleDateString()} •{" "}
-                {currentArticle.source.name}
-              </span>
-              <button
-                onClick={(e) => {
-                  e.stopPropagation(); // Prevent event bubbling
-                  handleAISummary();
-                }}
-                className="flex items-center gap-1 bg-[#99FF33]/10 hover:bg-[#99FF33]/20 px-3 py-1 rounded-full text-[#99FF33] text-xs sm:text-sm transition-colors"
-              >
-                <Sparkles className="h-3 w-3" />
-                AI Summarize
-              </button>
-            </div>
-
-            <h2 className="text-xl sm:text-2xl font-bold mb-3">
-              {currentArticle.title}
-            </h2>
-            <p className="text-sm sm:text-base text-gray-300 mb-4">
-              {currentArticle.description}
-            </p>
-            <p className="text-xs sm:text-sm text-gray-400">
-              {currentArticle.content?.split("[")[0]}
-            </p>
-
-            <div className="mt-6 flex justify-between">
-              <a
-                href={currentArticle.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-blue-400 hover:text-blue-300 text-xs sm:text-sm"
-              >
-                Read full story →
-              </a>
-            </div>
-
-            {/* AI Panel - Bottom sliding version */}
-            {/* AI Components */}
-            <AnimatePresence>
-              {/* Loading Indicator (shows immediately when clicked) */}
-              {isSummarizing && (
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.3 }}
-                  className="fixed bottom-6 right-1 justify-start  bg-gray-800/90 backdrop-blur-sm w-full px-4 py-3 rounded-full border border-[#99FF33]/30 shadow-lg z-50 flex items-center gap-3"
-                >
-                  <div className="relative h-5 w-5">
-                    <motion.div
-                      animate={{
-                        rotate: 360,
-                        scale: [1, 1.1, 1],
-                      }}
-                      transition={{
-                        rotate: {
-                          repeat: Infinity,
-                          duration: 1.5,
-                          ease: "linear",
-                        },
-                        scale: {
-                          repeat: Infinity,
-                          duration: 1,
-                          ease: "easeInOut",
-                        },
-                      }}
-                      className="absolute inset-0 border-2 border-transparent border-t-[#99FF33] border-r-[#99FF33] rounded-full"
-                    />
-                    <Sparkles className="absolute inset-0 m-auto h-2.5 w-2.5 text-[#99FF33]" />
-                  </div>
-                  <span className="text-sm text-[#99FF33]">
-                    Analyzing content...
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={currentIndex}
+              initial={{ x: 50, opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              exit={{ x: -50, opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              className="w-full max-w-2xl h-[80vh] bg-gray-900 rounded-2xl overflow-hidden border border-gray-800 flex flex-col"
+            >
+              {/* News content */}
+              <div className="flex-1 p-4 sm:p-6 overflow-y-auto relative">
+                {/* Improved header alignment */}
+                <div className="flex flex-col sm:flex-row justify-between items-start gap-2 mb-4">
+                  <span className="text-xs sm:text-sm text-gray-400">
+                    Source: {currentArticle.source.name}
                   </span>
-                </motion.div>
-              )}
-
-              {/* Full AI Panel (only shows after response) */}
-              {showAIPanel && aiResponse && (
-                <>
-                  {/* Overlay */}
-                  <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    className="fixed inset-0 bg-black/50 z-40"
-                    onClick={() => setShowAIPanel(false)}
-                  />
-
-                  {/* Main Panel */}
-                  <motion.div
-                    initial={{ y: "100%" }}
-                    animate={{ y: 0 }}
-                    exit={{ y: "100%" }}
-                    transition={{
-                      type: "spring",
-                      damping: 25,
-                      stiffness: 300,
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation(); // Prevent event bubbling
+                      handleAISummary();
                     }}
-                    className="fixed bottom-0 left-0 right-0 h-[70vh] max-h-[600px] bg-gray-900 rounded-t-2xl border-t border-x border-[#99FF33]/30 z-50 overflow-hidden shadow-2xl"
+                    className="flex items-center gap-1 bg-[#99FF33]/10 hover:bg-[#99FF33]/20 px-3 py-1 rounded-full text-[#99FF33] text-xs sm:text-sm transition-colors"
                   >
-                    {/* Panel Header */}
-                    <div className="sticky top-0 z-10 bg-gray-900 p-4 border-b border-gray-800 flex justify-between items-center">
-                      <div className="flex items-center gap-2">
-                        <Sparkles className="h-5 w-5 text-[#99FF33]" />
-                        <h3 className="font-medium text-white">AI Analysis</h3>
+                    <Sparkles className="h-3 w-3" />
+                    AI Summarize
+                  </button>
+                </div>
+
+                <h2 className="text-xl sm:text-2xl font-bold mb-3">
+                  {currentArticle.title}
+                </h2>
+                <p className="text-sm sm:text-base text-gray-300 mb-4">
+                  {currentArticle.description}
+                </p>
+                <p className="text-xs sm:text-sm text-gray-400">
+                  {currentArticle.content?.split("[")[0]}
+                </p>
+
+                <div className="mt-6 flex justify-between">
+                  <a
+                    href={currentArticle.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-400 hover:text-blue-300 text-xs sm:text-sm"
+                  >
+                    Read full story →
+                  </a>
+                </div>
+
+                {/* AI Panel - Bottom sliding version */}
+                {/* AI Components */}
+                <AnimatePresence>
+                  {/* Loading Indicator (shows immediately when clicked) */}
+                  {isSummarizing && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.3 }}
+                      className="fixed bottom-6 right-1 justify-start  bg-gray-800/90 backdrop-blur-sm w-full px-4 py-3 rounded-full border border-[#99FF33]/30 shadow-lg z-50 flex items-center gap-3"
+                    >
+                      <div className="relative h-5 w-5">
+                        <motion.div
+                          animate={{
+                            rotate: 360,
+                            scale: [1, 1.1, 1],
+                          }}
+                          transition={{
+                            rotate: {
+                              repeat: Infinity,
+                              duration: 1.5,
+                              ease: "linear",
+                            },
+                            scale: {
+                              repeat: Infinity,
+                              duration: 1,
+                              ease: "easeInOut",
+                            },
+                          }}
+                          className="absolute inset-0 border-2 border-transparent border-t-[#99FF33] border-r-[#99FF33] rounded-full"
+                        />
+                        <Sparkles className="absolute inset-0 m-auto h-2.5 w-2.5 text-[#99FF33]" />
                       </div>
-                      <button
+                      <span className="text-sm text-[#99FF33]">
+                        Analyzing content...
+                      </span>
+                    </motion.div>
+                  )}
+
+                  {/* Full AI Panel (only shows after response) */}
+                  {showAIPanel && aiResponse && (
+                    <>
+                      {/* Overlay */}
+                      <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        className="fixed inset-0 bg-black/50 z-40"
                         onClick={() => setShowAIPanel(false)}
-                        className="p-1 rounded-full hover:bg-gray-800 transition-colors"
+                      />
+
+                      {/* Main Panel */}
+                      <motion.div
+                        initial={{ y: "100%" }}
+                        animate={{ y: 0 }}
+                        exit={{ y: "100%" }}
+                        transition={{
+                          type: "spring",
+                          damping: 25,
+                          stiffness: 300,
+                        }}
+                        className="fixed bottom-0 left-0 right-0 h-[70vh] max-h-[600px] bg-gray-900 rounded-t-2xl border-t border-x border-[#99FF33]/30 z-50 overflow-hidden shadow-2xl"
                       >
-                        <X className="h-5 w-5 text-gray-400 hover:text-white" />
-                      </button>
-                    </div>
-
-                    {/* Content Area */}
-                    <div className="h-full overflow-y-auto p-4">
-                      <div className="prose prose-invert max-w-none">
-                        {aiResponse.split("\n").map((paragraph, i) => (
-                          <p
-                            key={i}
-                            className="text-sm sm:text-base mb-3 last:mb-0"
+                        {/* Panel Header */}
+                        <div className="sticky top-0 z-10 bg-gray-900 p-4 border-b border-gray-800 flex justify-between items-center">
+                          <div className="flex items-center gap-2">
+                            <Sparkles className="h-5 w-5 text-[#99FF33]" />
+                            <h3 className="font-medium text-white">
+                              AI Analysis
+                            </h3>
+                          </div>
+                          <button
+                            onClick={() => {
+                              setShowAIPanel(false);
+                              setAiResponse("");
+                            }}
+                            className="p-1 rounded-full hover:bg-gray-800 transition-colors"
                           >
-                            {paragraph}
-                          </p>
-                        ))}
-                      </div>
-                    </div>
-                  </motion.div>
-                </>
-              )}
-            </AnimatePresence>
-          </div>
+                            <X className="h-5 w-5 text-gray-400 hover:text-white" />
+                          </button>
+                        </div>
 
-          {/* Navigation arrows */}
-          <div className="flex justify-between p-1 border-t border-gray-800">
+                        {/* Content Area */}
+                        <div className="h-full overflow-y-auto p-4 pb-24">
+                          {aiResponse ? (
+                            <div className="space-y-3">
+                              {
+                                aiResponse
+                                  .split("\n")
+                                  .map((line) => line.trim()) // Trim each line first
+                                  .filter((line) => line.length > 0) // Remove empty lines
+                                  .map((line, index) => {
+                                    // Clean the line content
+                                    const cleanLine = line
+                                      .replace(/\*\*(.*?)\*\*/g, "$1") // Remove bold markdown
+                                      .replace(/\* /g, "• ") // Replace * with bullet
+                                      .replace(/^\*/, "•") // Handle * at start of line
+                                      .trim();
+
+                                    // Skip if line is empty after cleaning
+                                    if (!cleanLine) return null;
+
+                                    // Create a unique key using index and first 10 chars of content
+                                    const uniqueKey = `ai-line-${index}-${cleanLine
+                                      .substring(0, 10)
+                                      .replace(/\s+/g, "-")}`;
+
+                                    return (
+                                      <p
+                                        key={uniqueKey}
+                                        className="text-sm sm:text-base text-gray-300"
+                                      >
+                                        {cleanLine.startsWith("•") ? (
+                                          <span className="flex">
+                                            <span className="mr-2">•</span>
+                                            <span>
+                                              {cleanLine.substring(1)}
+                                            </span>
+                                          </span>
+                                        ) : (
+                                          cleanLine
+                                        )}
+                                      </p>
+                                    );
+                                  })
+                                  .filter(Boolean) // Remove any null entries from skipped lines
+                              }
+                            </div>
+                          ) : (
+                            <div className="h-full flex items-center justify-center text-gray-400">
+                              {!isSummarizing && "No summary available"}
+                            </div>
+                          )}
+                        </div>
+                      </motion.div>
+                    </>
+                  )}
+                </AnimatePresence>
+              </div>
+            </motion.div>
+          </AnimatePresence>
+
+          {/* Floating navigation for desktop */}
+          <div className="hidden md:block">
             <button
               onClick={handlePrevClick}
-              // onTouchStart={handlePrevClick} // For touch devices
               disabled={currentIndex === 0}
-              className={`p-2 rounded-full ${
+              className={`fixed left-4 top-1/2 transform -translate-y-1/2 p-3 rounded-full bg-gray-800/50 backdrop-blur-sm ${
                 currentIndex === 0
                   ? "text-gray-600"
-                  : "text-gray-300 hover:bg-gray-800"
+                  : "text-gray-300 hover:bg-gray-700"
               }`}
             >
-              <ChevronUp className="h-5 w-5" />
+              <ChevronLeft className="h-6 w-6" />
             </button>
-
             <button
               onClick={handleNextClick}
-              // onTouchStart={handleNextClick} // For touch devices
               disabled={currentIndex === news.length - 1}
-              className={`p-2 rounded-full ${
+              className={`fixed right-4 top-1/2 transform -translate-y-1/2 p-3 rounded-full bg-gray-800/50 backdrop-blur-sm ${
                 currentIndex === news.length - 1
                   ? "text-gray-600"
-                  : "text-gray-300 hover:bg-gray-800"
+                  : "text-gray-300 hover:bg-gray-700"
               }`}
             >
-              <ChevronDown className="h-5 w-5" />
+              <ChevronRight className="h-6 w-6" />
             </button>
           </div>
         </div>
       </div>
-
       {/* Footer remains the same */}
       <Footer>
         <div className="flex justify-around items-center py-6 px-6 backdrop-blur-lg rounded-t-xl border-t border-gray-800">
