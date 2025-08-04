@@ -7,6 +7,7 @@ import { Footer } from "./components/footer";
 import { Sparkles, ChevronLeft, ChevronRight, X } from "lucide-react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
+import Link from "next/link";
 
 type NewsItem = {
   source: {
@@ -185,7 +186,7 @@ export default function Dashboard() {
         <div className="flex-1 flex items-center justify-center">
           <div className="animate-pulse text-xl">Loading news...</div>
         </div>
-        {/* <Footer /> */}
+        <Footer />
       </div>
     );
   }
@@ -236,7 +237,7 @@ export default function Dashboard() {
       </Navbar>
 
       {/* Mobile Topics - Sticky below navbar */}
-      <div className="md:hidden sticky top-20 z-40 bg-gray-950/90 backdrop-blur-sm border-b border-gray-800 px-4 py-2">
+      <div className="md:hidden sticky top-20 z-40 bg-gray-950/90 backdrop-blur-sm px-4 py-2">
         <div className="relative">
           <div className="overflow-x-auto no-scrollbar">
             <div className="flex gap-2 w-max">
@@ -270,13 +271,13 @@ export default function Dashboard() {
       {/* Main news card - Fixed height with scrolling */}
       <div className="flex-1 flex flex-col items-center p-4 relative mt-16">
         <div
-          className="w-full max-w-2xl sm:h-[calc(104vh-180px)] h-[calc(100vh-180px)] bg-gray-900 rounded-2xl overflow-hidden border border-gray-800 flex flex-col"
+          className="w-full max-w-2xl sm:h-[calc(104vh-180px)] h-[calc(100vh-195px)] bg-gray-900 rounded-2xl overflow-hidden border border-gray-800 flex flex-col"
           onTouchStart={handleTouchStart}
           onTouchMove={handleTouchMove}
           onTouchEnd={handleTouchEnd}
         >
           {/* News content with scrollable area */}
-          <div className="flex-1 overflow-y-auto">
+          <div className="flex-1 overflow-y-auto no-scrollbar">
             {/* News image */}
             {currentArticle.urlToImage && (
               <div className="h-48 bg-gray-800 relative overflow-hidden">
@@ -404,9 +405,12 @@ export default function Dashboard() {
       {/* Footer */}
       <Footer>
         <div className="flex justify-around items-center py-6 px-6 backdrop-blur-lg rounded-t-xl border-t border-gray-800">
-          <button className="flex flex-col items-center text-gray-300 hover:text-white transition-colors">
+          <Link
+            href="/dashboard"
+            className="flex flex-col items-center text-gray-300 hover:text-white transition-colors"
+          >
             <span className="text-xs">News</span>
-          </button>
+          </Link>
           <button className="flex flex-col items-center text-gray-300 hover:text-white transition-colors">
             <span className="text-xs">Quiz</span>
           </button>

@@ -24,7 +24,7 @@ export function Navbar({ children }: NavbarProps) {
       >
         <motion.div
           whileHover={{ scale: 1.05 }}
-          className="relative w-36 h-12 md:w-44 md:h-14"
+          className="relative w-40 h-16 md:w-44 md:h-14"
         >
           <Image
             src="/logo.png"
