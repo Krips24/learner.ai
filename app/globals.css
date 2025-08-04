@@ -75,3 +75,23 @@
     background-position: 0% 50%;
   }
 }
+
+/* Ensure smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Better scrollbar for desktop */
+@media (min-width: 768px) {
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #4b5563;
+    border-radius: 3px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #1f2937;
+  }
+}
