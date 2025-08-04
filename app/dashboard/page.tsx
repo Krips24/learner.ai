@@ -275,7 +275,7 @@ export default function Dashboard() {
       {/* Main news card - Fixed height with scrolling */}
       <div className="flex-1 flex flex-col items-center p-4 relative mt-16">
         <div
-          className="w-full max-w-2xl sm:h-[calc(104vh-180px)] h-[calc(100vh-195px)] bg-gray-900 rounded-2xl overflow-hidden border border-gray-800 flex flex-col"
+          className="relative w-full max-w-2xl sm:h-[calc(104vh-180px)] h-[calc(100vh-195px)] bg-gray-900 rounded-2xl overflow-hidden border border-gray-800 flex flex-col"
           onTouchStart={handleTouchStart}
           onTouchMove={handleTouchMove}
           onTouchEnd={handleTouchEnd}
@@ -350,7 +350,7 @@ export default function Dashboard() {
           </div>
 
           {/* Navigation arrows for mobile */}
-          <div className="md:hidden flex justify-around items-center py-2 px-6 backdrop-blur-lg rounded-t-xl border-t border-gray-800">
+          <div className=" md:hidden absolute bottom-0 w-full  flex justify-between items-center py-2 px-6 backdrop-blur-lg rounded-t-xl border-t border-gray-800">
             <button
               onClick={handlePrevClick}
               disabled={currentIndex === 0}
