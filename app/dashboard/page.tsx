@@ -350,7 +350,7 @@ export default function Dashboard() {
           </div>
 
           {/* Navigation arrows for mobile */}
-          <div className=" md:hidden absolute bottom-0 w-full  flex justify-between items-center py-2 px-6 backdrop-blur-lg rounded-t-xl border-t border-gray-800">
+          <div className=" md:hidden relative w-full  flex justify-between items-center py-2 px-6 backdrop-blur-lg rounded-t-xl border-t border-gray-800">
             <button
               onClick={handlePrevClick}
               disabled={currentIndex === 0}
