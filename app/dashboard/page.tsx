@@ -312,7 +312,7 @@ export default function Dashboard() {
               >
                 {/* News content */}
                 <div className="flex flex-row justify-between items-start gap-2 mb-4">
-                  <span className="text-xs sm:text-sm text-gray-400">
+                  <span className="text-xs sm:text-sm text-gray-400 w-1/2">
                     Source: {currentArticle.author || "Unknown"}
                   </span>
                   <button
@@ -323,7 +323,7 @@ export default function Dashboard() {
                     className="flex items-center gap-1 bg-[#99FF33]/10 hover:bg-[#99FF33]/20 px-3 py-1 rounded-full text-[#99FF33] text-xs sm:text-sm transition-colors"
                   >
                     <Sparkles className="h-3 w-3" />
-                    AI Summarize
+                    <span className="text-nowrap"> AI Summarize</span>
                   </button>
                 </div>
 
