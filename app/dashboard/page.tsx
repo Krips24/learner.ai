@@ -75,7 +75,7 @@ export default function Dashboard() {
         console.log("Fetched news data:", data);
         setNews(data.news || []);
       } catch (error) {
-        console.error("Error fetching news:", error);
+        console.log("Error fetching news:", error);
         setNews([]); // Explicitly set empty array on error
       } finally {
         setIsLoading(false);
@@ -145,11 +145,13 @@ export default function Dashboard() {
         },
         body: JSON.stringify({
           title: news[currentIndex].title,
-          content: news[currentIndex].content || news[currentIndex].description,
+          content: news[currentIndex].summary || news[currentIndex].text,
           instructions: `Provide a concise summary in 3 short points.
                   Use plain text only - no markdown or formatting.
                   Each point should be one sentence maximum.
-                  Then add "Why it matters:" followed by one short sentence.`,
+                  Then add "Why it matters:" followed by one short sentence. NOTE: DO NOT START THE EXPLAINATION WITH ANY OPENING SENTENCE, JUST simply start with the summary points.
+
+`,
         }),
       });
 
