@@ -73,7 +73,7 @@ export default function Dashboard() {
 
         const data = await response.json();
         console.log("Fetched news data:", data);
-        setNews(data.news || []);
+        setNews(data.articles || []);
       } catch (error) {
         console.log("Error fetching news:", error);
         setNews([]); // Explicitly set empty array on error
@@ -145,7 +145,7 @@ export default function Dashboard() {
         },
         body: JSON.stringify({
           title: news[currentIndex].title,
-          content: news[currentIndex].summary || news[currentIndex].text,
+          content: news[currentIndex].description || news[currentIndex].content,
           instructions: `Provide a concise summary in 3 short points.
                   Use plain text only - no markdown or formatting.
                   Each point should be one sentence maximum.
@@ -287,11 +287,11 @@ export default function Dashboard() {
           {/* News content with scrollable area */}
           <div className="flex-1 overflow-y-auto no-scrollbar">
             {/* News image */}
-            {currentArticle.image && (
+            {currentArticle.urlToImage && (
               <div className="h-48 bg-gray-800 relative overflow-hidden">
                 <Image
                   fill
-                  src={currentArticle.image}
+                  src={currentArticle.urlToImage}
                   alt={currentArticle.title}
                   className="w-full h-full object-cover"
                   priority
@@ -315,7 +315,7 @@ export default function Dashboard() {
                 {/* News content */}
                 <div className="flex flex-row justify-between items-start gap-2 mb-4">
                   <span className="text-xs sm:text-sm text-gray-400 w-1/2">
-                    Source: {currentArticle.author || "Unknown"}
+                    Source: {currentArticle.source.name || "Unknown"}
                   </span>
                   <button
                     onClick={(e) => {
@@ -333,10 +333,10 @@ export default function Dashboard() {
                   {currentArticle.title}
                 </h2>
                 <p className="text-sm sm:text-base text-gray-300 mb-4">
-                  {currentArticle.summary}
+                  {currentArticle.content}
                 </p>
                 <p className="text-xs sm:text-sm text-gray-400">
-                  {currentArticle.text?.split("[")[0]}
+                  {currentArticle.description?.split("[")[0]}
                 </p>
 
                 <div className="mt-6 flex justify-between">
