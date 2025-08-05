@@ -57,7 +57,14 @@ function AuthButton() {
           Account
         </Button>
       </DropdownMenuTrigger>
+
       <DropdownMenuContent className="border-gray-800 bg-gray-900">
+        <DropdownMenuItem
+          className="cursor-pointer text-sm text-gray-300 hover:bg-gray-800 focus:text-white"
+          onClick={() => router.push("/dashboard")}
+        >
+          Dashboard
+        </DropdownMenuItem>
         <DropdownMenuItem
           className="cursor-pointer text-sm text-gray-300 hover:bg-gray-800 focus:text-white"
           onClick={() => router.push("/profile")}

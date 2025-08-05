@@ -13,6 +13,9 @@ type NewsItem = {
     id: string | null;
     name: string;
   };
+  image: string | null;
+  summary: string;
+  text: string | null;
   author: string | null;
   title: string;
   description: string;
@@ -44,7 +47,6 @@ export default function Dashboard() {
   // const [direction, setDirection] = useState<"next" | "prev">("next");
 
   // Fetch news based on selected topic
-  // Fetch news based on selected topic
   useEffect(() => {
     const fetchNews = async () => {
       setIsLoading(true);
@@ -70,15 +72,15 @@ export default function Dashboard() {
         }
 
         const data = await response.json();
-        setNews(data.articles || []);
+        console.log("Fetched news data:", data);
+        setNews(data.news || []);
       } catch (error) {
         console.error("Error fetching news:", error);
-        // Optionally set some error state to show to user
+        setNews([]); // Explicitly set empty array on error
       } finally {
         setIsLoading(false);
       }
     };
-
     fetchNews();
   }, [selectedTopic]);
 
@@ -283,11 +285,11 @@ export default function Dashboard() {
           {/* News content with scrollable area */}
           <div className="flex-1 overflow-y-auto no-scrollbar">
             {/* News image */}
-            {currentArticle.urlToImage && (
+            {currentArticle.image && (
               <div className="h-48 bg-gray-800 relative overflow-hidden">
                 <Image
                   fill
-                  src={currentArticle.urlToImage}
+                  src={currentArticle.image}
                   alt={currentArticle.title}
                   className="w-full h-full object-cover"
                   priority
@@ -311,7 +313,7 @@ export default function Dashboard() {
                 {/* News content */}
                 <div className="flex flex-row justify-between items-start gap-2 mb-4">
                   <span className="text-xs sm:text-sm text-gray-400">
-                    Source: {currentArticle.source.name}
+                    Source: {currentArticle.author || "Unknown"}
                   </span>
                   <button
                     onClick={(e) => {
@@ -329,10 +331,10 @@ export default function Dashboard() {
                   {currentArticle.title}
                 </h2>
                 <p className="text-sm sm:text-base text-gray-300 mb-4">
-                  {currentArticle.description}
+                  {currentArticle.summary}
                 </p>
                 <p className="text-xs sm:text-sm text-gray-400">
-                  {currentArticle.content?.split("[")[0]}
+                  {currentArticle.text?.split("[")[0]}
                 </p>
 
                 <div className="mt-6 flex justify-between">
