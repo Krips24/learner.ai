@@ -51,9 +51,8 @@ export default function Dashboard() {
     const fetchNews = async () => {
       setIsLoading(true);
       try {
-        const yesterday = new Date();
-        yesterday.setDate(yesterday.getDate() - 1);
-        const dateString = yesterday.toISOString().split("T")[0];
+        const today = new Date();
+        const dateString = today.toISOString().split("T")[0];
 
         const response = await fetch("/api/fetch-news", {
           method: "POST",
