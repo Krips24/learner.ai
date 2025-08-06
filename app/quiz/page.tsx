@@ -1,4 +1,4 @@
-// app/profile/page.tsx
+// app/quiz/page.tsx
 
 import React from "react";
 import { Navbar } from "../dashboard/components/navbar";
