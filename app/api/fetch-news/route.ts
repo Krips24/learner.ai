@@ -2,14 +2,14 @@ import { NextResponse } from "next/server";
 
 export async function POST(request: Request) {
   try {
-    const { topic } = await request.json();
+    const { topic, date } = await request.json();
     const apiKey = process.env.NEXT_PUBLIC_NEWS_API_KEY;
 
     if (!apiKey) {
       throw new Error("News API key not configured");
     }
 
-    const apiUrl = `https://saurav.tech/NewsAPI/top-headlines/category/${topic}/in.json`;
+    const apiUrl = `https://api.worldnewsapi.com/search-news?language=en&source-countries=in&categories=${topic}&date=${date}&api-key=${apiKey}`;
 
     const response = await fetch(apiUrl);
 
