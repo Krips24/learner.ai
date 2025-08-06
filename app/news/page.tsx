@@ -420,7 +420,7 @@ export default function News() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="fixed bottom-6 right-1 justify-start bg-gray-800/90 backdrop-blur-sm w-full px-4 py-3 rounded-full border border-[#99FF33]/30 shadow-lg z-50 flex items-center gap-3"
+            className="fixed bottom-5 justify-start bg-gray-800/90 backdrop-blur-sm w-full px-4 py-3 rounded-full border border-[#99FF33]/30 shadow-lg z-50 flex items-center gap-3"
           >
             <div className="relative h-5 w-5">
               <motion.div
@@ -444,7 +444,9 @@ export default function News() {
               />
               <Sparkles className="absolute inset-0 m-auto h-2.5 w-2.5 text-[#99FF33]" />
             </div>
-            <span className="text-sm text-[#99FF33]">Analyzing content...</span>
+            <span className="text-sm text-[#99FF33]">
+              Summarizing content...
+            </span>
           </motion.div>
         )}
 
@@ -476,7 +478,7 @@ export default function News() {
               <div className="sticky top-0 z-10 bg-gray-900 p-4 border-b border-gray-800 flex justify-between items-center">
                 <div className="flex items-center gap-2">
                   <Sparkles className="h-5 w-5 text-[#99FF33]" />
-                  <h3 className="font-medium text-white">AI Analysis</h3>
+                  <h3 className="font-medium text-white">AI Summary</h3>
                 </div>
                 <button
                   onClick={() => {
