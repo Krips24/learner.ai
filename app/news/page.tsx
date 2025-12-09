@@ -51,9 +51,6 @@ export default function News() {
     const fetchNews = async () => {
       setIsLoading(true);
       try {
-        const today = new Date();
-        const dateString = today.toISOString().split("T")[0];
-
         const response = await fetch("/api/fetch-news", {
           method: "POST",
           headers: {
@@ -61,7 +58,6 @@ export default function News() {
           },
           body: JSON.stringify({
             topic: selectedTopic,
-            date: dateString,
           }),
         });
 
@@ -137,7 +133,7 @@ export default function News() {
     setShowAIPanel(true);
 
     try {
-      const response = await fetch("/api/summarize", {
+      const response = await fetch("/api/ai-summarize", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -148,7 +144,7 @@ export default function News() {
           instructions: `Provide a concise summary in 3 short points.
                   Use plain text only - no markdown or formatting.
                   Each point should be one sentence maximum.
-                  Then add "Why it matters:" followed by one short sentence. NOTE: DO NOT START THE EXPLAINATION WITH ANY OPENING SENTENCE, JUST simply start with the summary points.
+                   NOTE: DO NOT START THE EXPLAINATION WITH ANY OPENING SENTENCE, JUST simply start with the summary points.
 
 `,
         }),
@@ -165,7 +161,7 @@ export default function News() {
         }
         throw new Error(data.error || "Failed to generate summary");
       }
-
+ 
       setAiResponse(
         data.candidates?.[0]?.content?.parts?.[0]?.text ||
           "Could not generate summary"

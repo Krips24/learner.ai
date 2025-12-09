@@ -2,14 +2,23 @@ import { NextResponse } from "next/server";
 
 export async function POST(request: Request) {
   try {
-    const { topic, date } = await request.json();
+    const { topic } = await request.json();
     const apiKey = process.env.NEXT_PUBLIC_NEWS_API_KEY;
 
     if (!apiKey) {
       throw new Error("News API key not configured");
     }
 
-    const apiUrl = `https://api.worldnewsapi.com/search-news?language=en&source-countries=in&categories=${topic}&date=${date}&api-key=${apiKey}`;
+    // Today date
+    const today = new Date();
+    const todayDateString = today.toISOString().split("T")[0];
+
+    // Yesterday date
+    // const yesterday = new Date(today.getTime() - 24 * 60 * 60 * 1000);
+    // const yesterdayDateString = yesterday.toISOString().split("T")[0];1
+
+    const apiUrl = `https://api.worldnewsapi.com/search-news?language=en&source-countries=in&categories=${topic}&latest_publish_date=${todayDateString}&api-key=${apiKey}
+`;
 
     const response = await fetch(apiUrl);
 
