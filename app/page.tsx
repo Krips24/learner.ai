@@ -11,7 +11,7 @@ export default function Home() {
       {/* Navbar */}
       <Navbar />
 
-      {/* Hero Section */}
+      {/* Hero Sectio */}
       <Hero />
 
       {/* Features Section */}
