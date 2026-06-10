@@ -14,7 +14,7 @@ export default function Home() {
       {/* Hero Section */}
       <Hero />
 
-      {/* Features Section */}
+      {/* Features Sectio */}
       <Features />
 
       {/* How It Works */}
